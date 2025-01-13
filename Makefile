@@ -12,7 +12,7 @@ HEADER = $(HEADER_DIR)/minishell.h
 INCLUDES = -I$(HEADER_DIR) -I$(LIBFT_DIR)
 
 SRC_DIR = $(MINISHELL_DIR)/src
-SRC_FILES = server.c
+SRC_FILES = main.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJS_DIR = $(MINISHELL_DIR)/objs
