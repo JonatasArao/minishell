@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:46:55 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/01/31 12:01:36 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:18:17 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,20 @@ t_list	*extract_token(const char *s)
 	t_list	*head;
 	t_list	*current;
 	char	*word;
-	int		i;
 
-	i = 0;
 	head = NULL;
-	while (s[i])
+	while (*s)
 	{
-		word = get_next_token(&s[i]);
+		word = get_next_token(s);
 		if (!word)
 		{
-			ft_lstclear(&head, free);
+			if (head)
+				ft_lstclear(&head, free);
 			break ;
 		}
-		i += ft_strlen(word);
-		while (s[i] && ft_isspace(s[i]))
-			i++;
+		s += ft_strlen(word);
+		while (*s && ft_isspace(*s))
+			s++;
 		current = ft_lstnew((void *) word);
 		if (head)
 			ft_lstadd_back(&head, current);
