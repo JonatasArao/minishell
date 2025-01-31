@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:46:55 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/01/31 09:59:00 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:01:36 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ size_t	get_token_end(const char *s, unsigned int start)
 	return (end);
 }
 
-char	*get_next_token(char const *s)
+char	*get_next_token(const char *s)
 {
-	char			*word;
+	char			*token;
 	unsigned int	start;
 	size_t			end;
 
@@ -52,8 +52,37 @@ char	*get_next_token(char const *s)
 	end = get_token_end(s, start);
 	if (start == end)
 		return (NULL);
-	word = ft_substr(s, start, end - start);
-	if (!word)
+	token = ft_substr(s, start, end - start);
+	if (!token)
 		return (NULL);
-	return (word);
+	return (token);
+}
+
+t_list	*extract_token(const char *s)
+{
+	t_list	*head;
+	t_list	*current;
+	char	*word;
+	int		i;
+
+	i = 0;
+	head = NULL;
+	while (s[i])
+	{
+		word = get_next_token(&s[i]);
+		if (!word)
+		{
+			ft_lstclear(&head, free);
+			break ;
+		}
+		i += ft_strlen(word);
+		while (s[i] && ft_isspace(s[i]))
+			i++;
+		current = ft_lstnew((void *) word);
+		if (head)
+			ft_lstadd_back(&head, current);
+		else
+			head = current;
+	}
+	return (head);
 }

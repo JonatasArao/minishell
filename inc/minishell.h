@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/01/31 07:12:41 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:30:15 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 size_t	get_token_end(const char *s, unsigned int start);
 
-char	*get_next_token(char const *s);
+char	*get_next_token(const char *s);
+
+t_list	*extract_token(const char *s);
 
 #endif
