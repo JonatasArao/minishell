@@ -10,7 +10,7 @@ HEADER = $(HEADER_DIR)/minishell.h
 INCLUDES = -I$(HEADER_DIR) -I$(LIBFT_DIR)
 SRC_DIR = src
 SRC_FILES = main.c \
-			parse/extract_token.c
+			parse/extract_tokens.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))

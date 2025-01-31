@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_token.c                                    :+:      :+:    :+:   */
+/*   extract_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -58,7 +58,7 @@ char	*get_next_token(const char *s)
 	return (token);
 }
 
-t_list	*extract_token(const char *s)
+t_list	*extract_tokens(const char *s)
 {
 	t_list	*head;
 	t_list	*current;
