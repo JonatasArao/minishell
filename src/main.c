@@ -3,45 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/01/31 14:21:23 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/04 21:38:18 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	show_tokens(t_list *tokens)
-{
-	t_list	*current;
-
-	current = tokens;
-	while (current != NULL)
-	{
-		printf("Token: %s\n", (char *)current->content);
-		current = current->next;
-	}
-}
-
 int	main(void)
 {
-	char	*input;
-	t_list	*tokens;
+	t_minish	msh;
 
 	while (1)
 	{
-		input = readline("$ ");
-		if (input == NULL)
+		msh.input = readline("$ ");
+		if (msh.input == NULL)
 			break ;
-		tokens = extract_tokens(input);
-		if (tokens)
+		if (strcmp(msh.input, "exit") == 0)
 		{
-			add_history(input);
-			show_tokens(tokens);
-			ft_lstclear(&tokens, free);
+			free(msh.input);
+			break ;
 		}
-		free(input);
+		msh.tokens = extract_tokens(msh.input);
+		if (msh.tokens)
+		{
+			add_history(msh.input);
+			parse_command(msh.tokens);
+			ft_lstclear(&msh.tokens, free);
+		}
+		free(msh.input);
 	}
 	rl_clear_history();
 	return (0);
