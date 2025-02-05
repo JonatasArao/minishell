@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:22:35 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/04 22:22:41 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:15:12 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,48 @@ char	*get_next_token(const char *s)
 	return (token);
 }
 
+int	is_valid_quotes(const char *s)
+{
+	char	quote_char;
+	int		quote_count;
+
+	quote_char = 0;
+	quote_count = 0;
+	while (*s && (!ft_isspace(*s) || quote_char))
+	{
+		if ((*s == '\'' || *s == '"') && !quote_char)
+		{
+			quote_char = *s;
+			quote_count++;
+		}
+		else if (*s == quote_char)
+		{
+			quote_char = 0;
+			quote_count++;
+		}
+		s++;
+	}
+	if (quote_count % 2 == 0)
+		return (1);
+	return (0);
+}
+
 t_list	*extract_tokens(const char *s)
 {
 	t_list	*head;
 	t_list	*current;
 	char	*word;
 
+	if (!is_valid_quotes(s))
+		return (NULL);
 	head = NULL;
 	while (*s)
 	{
 		word = get_next_token(s);
+		if (!word && head)
+			ft_lstclear(&head, free);
 		if (!word)
-		{
-			if (head)
-				ft_lstclear(&head, free);
 			break ;
-		}
 		s += ft_strlen(word);
 		while (*s && ft_isspace(*s))
 			s++;

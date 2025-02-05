@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/05 16:07:20 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:15:15 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_minish
 size_t	get_token_end(const char *s, unsigned int start);
 
 char	*get_next_token(const char *s);
+
+int		is_valid_quotes(const char *s);
 
 t_list	*extract_tokens(const char *s);
 
