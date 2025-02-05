@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:22:35 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/05 17:15:12 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:07:11 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	is_valid_quotes(const char *s)
 
 	quote_char = 0;
 	quote_count = 0;
-	while (*s && (!ft_isspace(*s) || quote_char))
+	while (*s)
 	{
 		if ((*s == '\'' || *s == '"') && !quote_char)
 		{
@@ -81,6 +81,7 @@ int	is_valid_quotes(const char *s)
 	}
 	if (quote_count % 2 == 0)
 		return (1);
+	printf("minishell: unexpected EOF for %c\n", quote_char);
 	return (0);
 }
 
