@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/04 21:38:18 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:03:26 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	main(void)
 		msh.tokens = extract_tokens(msh.input);
 		if (msh.tokens)
 		{
-			add_history(msh.input);
 			parse_command(msh.tokens);
 			ft_lstclear(&msh.tokens, free);
+			add_history(msh.input);
 		}
 		free(msh.input);
 	}

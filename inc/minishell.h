@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/04 21:36:56 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/05 16:07:20 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_command
 typedef struct s_redirection
 {
 	char	*type;
-	char	*file;
+	char	*target;
 }	t_redirection;
 
 typedef struct s_minish
@@ -44,5 +44,7 @@ char	*get_next_token(const char *s);
 t_list	*extract_tokens(const char *s);
 
 void	parse_command(t_list *tokens);
+
+int		is_redirection(const char *token);
 
 #endif
