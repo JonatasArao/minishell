@@ -6,21 +6,11 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 21:26:59 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/05 16:27:13 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:53:32 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_redirection(const char *token)
-{
-	if ((ft_strncmp(token, ">>", 2) == 0 && token[2] == '\0')
-		|| (ft_strncmp(token, "<<", 2) == 0 && token[2] == '\0')
-		|| (ft_strncmp(token, ">", 1) == 0 && token[1] == '\0')
-		|| (ft_strncmp(token, "<", 1) == 0 && token[1] == '\0'))
-		return (1);
-	return (0);
-}
 
 void	parse_command(t_list *tokens)
 {
@@ -28,6 +18,8 @@ void	parse_command(t_list *tokens)
 	char	*prev_token;
 	char	*token;
 
+	if (!is_token_list_valid(tokens))
+		return ;
 	token_node = tokens;
 	prev_token = NULL;
 	while (token_node)

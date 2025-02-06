@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:22:35 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/05 18:07:11 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:49:35 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,33 +56,6 @@ char	*get_next_token(const char *s)
 	if (!token)
 		return (NULL);
 	return (token);
-}
-
-int	is_valid_quotes(const char *s)
-{
-	char	quote_char;
-	int		quote_count;
-
-	quote_char = 0;
-	quote_count = 0;
-	while (*s)
-	{
-		if ((*s == '\'' || *s == '"') && !quote_char)
-		{
-			quote_char = *s;
-			quote_count++;
-		}
-		else if (*s == quote_char)
-		{
-			quote_char = 0;
-			quote_count++;
-		}
-		s++;
-	}
-	if (quote_count % 2 == 0)
-		return (1);
-	printf("minishell: unexpected EOF for %c\n", quote_char);
-	return (0);
 }
 
 t_list	*extract_tokens(const char *s)
