@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/06 16:52:48 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:29:52 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,9 @@ int		is_redirection(const char *token);
 int		is_pipe(const char *token);
 
 int		is_token_list_valid(t_list *tokens);
+
+void	free_redirection(void *redir_ptr);
+
+void	free_command(void *cmd_ptr);
 
 #endif
