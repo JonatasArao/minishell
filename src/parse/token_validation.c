@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:48:53 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/06 17:31:46 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:45:38 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,14 @@ int	is_valid_quotes(const char *s)
 	return (0);
 }
 
-int	is_redirection(const char *token)
-{
-	if ((ft_strncmp(token, ">>", 2) == 0 && token[2] == '\0')
-		|| (ft_strncmp(token, "<<", 2) == 0 && token[2] == '\0')
-		|| (token[0] == '<' && token[1] == '\0')
-		|| (token[0] == '>' && token[1] == '\0'))
-		return (1);
-	return (0);
-}
-
-int	is_pipe(const char *token)
-{
-	if (ft_strncmp(token, "|", 1) == 0 && token[1] == '\0')
-		return (1);
-	return (0);
-}
-
-void	print_syntax_error(const char *token, const char *next_token)
+int	handle_syntax_error(const char *token, const char *next_token)
 {
 	if (next_token)
 		printf("minishell: syntax error near token `%s'\n",
 			next_token);
 	else
 		printf("minishell: syntax error near token `%s'\n", token);
+	return (0);
 }
 
 int	is_token_list_valid(t_list *tokens)
@@ -74,6 +58,9 @@ int	is_token_list_valid(t_list *tokens)
 	if (!tokens)
 		return (0);
 	token_node = tokens;
+	token = (char *)token_node->content;
+	if (is_pipe(token))
+		return (handle_syntax_error(token, NULL));
 	while (token_node)
 	{
 		token = (char *)token_node->content;
@@ -81,12 +68,10 @@ int	is_token_list_valid(t_list *tokens)
 			next_token = (char *)token_node->next->content;
 		else
 			next_token = NULL;
-		if ((is_redirection(token) || is_pipe(token)) && (next_token == NULL
-				|| is_redirection(next_token) || is_pipe(next_token)))
-		{
-			print_syntax_error(token, next_token);
-			return (0);
-		}
+		if (((is_redirection(token) || is_pipe(token))
+				&& (next_token == NULL || is_pipe(next_token)))
+			|| (is_redirection(token) && is_redirection(next_token)))
+			return (handle_syntax_error(token, next_token));
 		token_node = token_node->next;
 	}
 	return (1);
