@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_command.c                                    :+:      :+:    :+:   */
+/*   command_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 21:26:59 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/08 22:22:29 by jarao-de         ###   ########.fr       */
+/*   Created: 2025/02/09 21:46:13 by jarao-de          #+#    #+#             */
+/*   Updated: 2025/02/10 01:14:29 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,10 @@ void	free_command(void *cmd_ptr)
 	{
 		if (cmd->arguments)
 			ft_lstclear(&cmd->arguments, free);
-		if (cmd->input_redirection)
-			ft_lstclear(&cmd->input_redirection, free_redirection);
-		if (cmd->output_redirection)
-			ft_lstclear(&cmd->output_redirection, free_redirection);
+		if (cmd->input_redir)
+			ft_lstclear(&cmd->input_redir, free_redirection);
+		if (cmd->output_redir)
+			ft_lstclear(&cmd->output_redir, free_redirection);
 		free(cmd);
-	}
-}
-
-void	parse_command(t_list *tokens)
-{
-	t_list	*token_node;
-	char	*prev_token;
-	char	*token;
-
-	token_node = tokens;
-	prev_token = NULL;
-	while (token_node)
-	{
-		token = (char *)token_node->content;
-		if (prev_token && is_redirection(prev_token))
-			printf("Redirecionamento (%s) para (%s)\n", prev_token, token);
-		else if (ft_strncmp(token, "|", 1) == 0)
-			printf("Pipe: %s\n", token);
-		else if (!is_redirection(token))
-			printf("Argumento: %s\n", token);
-		prev_token = token;
-		token_node = token_node->next;
 	}
 }
