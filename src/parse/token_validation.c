@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:48:53 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/10 21:45:38 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:28:16 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,23 @@ int	is_valid_quotes(const char *s)
 	}
 	if (quote_count % 2 == 0)
 		return (1);
-	printf("minishell: unexpected EOF for `%c'\n", quote_char);
+	ft_putstr_fd("minishell: unexpected EOF for `", 2);
+	ft_putchar_fd(quote_char, 2);
+	ft_putendl_fd("'", 2);
 	return (0);
 }
 
 int	handle_syntax_error(const char *token, const char *next_token)
 {
+	const char	*token_error;
+
 	if (next_token)
-		printf("minishell: syntax error near token `%s'\n",
-			next_token);
+		token_error = next_token;
 	else
-		printf("minishell: syntax error near token `%s'\n", token);
+		token_error = token;
+	ft_putstr_fd("minishell: syntax error near token `", 2);
+	ft_putstr_fd((char *) token_error, 2);
+	ft_putendl_fd("'", 2);
 	return (0);
 }
 
