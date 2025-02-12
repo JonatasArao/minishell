@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/10 22:00:29 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:05:18 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	print_commands(t_list *commands)
 
 void	process_input(t_minish *msh)
 {
+	t_command	*cmd;
+	t_env_var	*env_var;
+
 	msh->tokens = extract_tokens(msh->input);
 	if (msh->tokens && is_token_list_valid(msh->tokens))
 	{
@@ -62,6 +65,11 @@ void	process_input(t_minish *msh)
 		if (msh->commands)
 		{
 			print_commands(msh->commands);
+			cmd = (t_command *)msh->commands->content;
+			env_var = get_env_var(msh->env_vars,
+					(char *) cmd->arguments->content);
+			if (env_var && env_var->value)
+				printf("Env:%s\nValue:%s\n", env_var->key, env_var->value);
 			ft_lstclear(&msh->commands, free_command);
 		}
 	}
@@ -69,10 +77,15 @@ void	process_input(t_minish *msh)
 		ft_lstclear(&msh->tokens, free);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_minish	msh;
 
+	(void) argc;
+	(void) argv;
+	msh.env_vars = extract_env_vars(envp);
+	if (!msh.env_vars)
+		return (1);
 	while (1)
 	{
 		msh.input = readline("$ ");
@@ -88,6 +101,7 @@ int	main(void)
 			add_history(msh.input);
 		free(msh.input);
 	}
+	ft_lstclear(&msh.env_vars, free_env_var);
 	rl_clear_history();
 	return (0);
 }

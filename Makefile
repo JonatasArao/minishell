@@ -15,7 +15,8 @@ SRC_FILES = main.c \
 			parse/command_cleanup.c \
 			parse/command_list.c \
 			parse/token_validation.c \
-			parse/token_checks.c
+			parse/token_checks.c \
+			expand/env_vars_list.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))
@@ -47,6 +48,9 @@ $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR)/parse-%.o: $(SRC_DIR)/parse/%.c $(HEADER) | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR)/expand-%.o: $(SRC_DIR)/expand/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 .PHONY: all clean fclean re
