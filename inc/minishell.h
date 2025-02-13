@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/13 16:42:21 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:33:34 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ size_t		get_var_end(const char *token);
 char		*get_next_var(char const *token);
 
 t_list		*extract_vars(const char *token);
+
+char		*get_var_value(t_list *env, int last_status, const char *key);
 
 #endif
