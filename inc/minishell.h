@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/13 16:20:16 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:42:21 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_minish
 	t_list	*tokens;
 	t_list	*commands;
 	t_list	*env_vars;
+	int		last_status;
 }	t_minish;
 
 size_t		get_token_end(const char *s, unsigned int start);
