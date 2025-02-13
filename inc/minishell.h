@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/13 15:29:19 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:20:16 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ typedef struct s_command
 	t_list	*arguments;
 	t_list	*input_redir;
 	t_list	*output_redir;
+	int		input_fd;
+	int		output_fd;
+	int		status;
 }	t_command;
 
 typedef struct s_redirection
