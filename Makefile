@@ -16,7 +16,9 @@ SRC_FILES = main.c \
 			parse/command_list.c \
 			parse/token_validation.c \
 			parse/token_checks.c \
-			expand/env_vars_list.c
+			expand/env_vars_list.c \
+			expand/envp_generator.c \
+			expand/extract_vars.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))

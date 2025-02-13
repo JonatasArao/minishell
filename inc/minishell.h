@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/12 16:16:56 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:29:19 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct s_command
 	t_list	*arguments;
 	t_list	*input_redir;
 	t_list	*output_redir;
-	int		exit_status;
 }	t_command;
 
 typedef struct s_redirection
@@ -85,5 +84,15 @@ t_env_var	*get_env_var(t_list *env, const char *key);
 int			lstset_env_var(t_list **env, const char *key, const char *value);
 
 t_list		*extract_env_vars(char **envp);
+
+char		*create_env_string(const char *key, const char *value);
+
+char		**get_envp(t_list *env);
+
+size_t		get_var_end(const char *token);
+
+char		*get_next_var(char const *token);
+
+t_list		*extract_vars(const char *token);
 
 #endif
