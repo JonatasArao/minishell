@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/13 17:33:34 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:26:40 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,11 @@ char		*get_next_var(char const *token);
 t_list		*extract_vars(const char *token);
 
 char		*get_var_value(t_list *env, int last_status, const char *key);
+
+char		*concat_vars(t_list *vars);
+
+int			expand_var(t_list *env, int last_status, char **var);
+
+char		*expand_token(t_list *env, int last_status, char *token);
 
 #endif
