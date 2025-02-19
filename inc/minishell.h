@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 14:49:06 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:17:39 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,12 @@ int			expand_var(t_list *env, int last_status, char **var);
 
 char		*expand_token(t_list *env, int last_status, char *token);
 
-int			expand_commands(t_list *env, int last_status, t_list *cmds);
+int			is_ambiguous_redirect(char *old_target, char *expanded_target);
+
+int			expand_redir(t_list *env, int last_status, t_list *redir);
+
+int			expand_arguments(t_list *env, int last_status, t_list *arguments);
+
+t_list		*expand_commands(t_list *env, int last_status, t_list *cmds);
 
 #endif
