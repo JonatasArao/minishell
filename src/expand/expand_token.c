@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:53:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 00:03:42 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:43:01 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,42 @@ char	*get_var_value(t_list *env, int last_status, const char *key)
 	return (result);
 }
 
+char	*expand_quotes(char *s)
+{
+	char	*quote;
+	char	*double_quote;
+	char	*new_value;
+
+	new_value = NULL;
+	quote = ft_strrchr(s, '\'');
+	double_quote = ft_strrchr(s, '"');
+	if (double_quote && (!quote || double_quote > quote
+			|| (ft_strncmp(s, "\"'", 2) == 0 && s[2] == '\0')))
+		new_value = ft_strtrim(s, "\"");
+	else if (quote && (!double_quote || quote > double_quote))
+		new_value = ft_strtrim(s, "'");
+	else
+		return (s);
+	if (!new_value)
+		return (NULL);
+	return (new_value);
+}
+
 int	expand_var(t_list *env, int last_status, char **var)
 {
 	char	*new_value;
 	char	*content;
-	char	*quote;
-	char	*double_quote;
 
 	new_value = NULL;
 	content = (char *)(*var);
-	quote = ft_strrchr(content, '\'');
-	double_quote = ft_strrchr(content, '"');
 	if (content[0] == '$')
 		new_value = get_var_value(env, last_status, content + 1);
-	else if (double_quote && (!quote || double_quote > quote
-			|| (ft_strncmp(content, "\"'", 2) == 0 && content[2] == '\0')))
-			new_value = ft_strtrim(content, "\"");
-	else if (quote && (!double_quote || quote > double_quote))
-		new_value = ft_strtrim(content, "'");
 	else
-		return (1);
+	{
+		new_value = expand_quotes(content);
+		if (new_value == content)
+			return (1);
+	}
 	if (!new_value)
 		return (0);
 	free(*var);
