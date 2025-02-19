@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:53:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/18 23:09:55 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/19 00:03:42 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	expand_var(t_list *env, int last_status, char **var)
 
 char	*concat_vars(t_list *vars)
 {
-	size_t	len = 0;
-	t_list	*current = vars;
+	size_t	len;
+	t_list	*current;
 	char	*token;
 	char	*current_var;
 
