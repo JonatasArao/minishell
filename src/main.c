@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/17 15:46:01 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:35:03 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,14 @@ void	print_commands(t_list *commands)
 
 void	process_input(t_minish *msh)
 {
-	t_command	*cmd;
-	t_env_var	*env_var;
-
 	msh->tokens = extract_tokens(msh->input);
 	if (msh->tokens && is_token_list_valid(msh->tokens))
 	{
 		msh->commands = extract_commands(msh->tokens);
 		if (msh->commands)
 		{
+			expand_commands(msh->env_vars, 0, msh->commands);
 			print_commands(msh->commands);
-			cmd = (t_command *)msh->commands->content;
-			env_var = get_env_var(msh->env_vars,
-					(char *) cmd->arguments->content);
-			if (env_var && env_var->value)
-				printf("Env:%s\nValue:%s\n", env_var->key, env_var->value);
 			ft_lstclear(&msh->commands, free_command);
 		}
 	}

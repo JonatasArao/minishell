@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_vars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 08:33:45 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/13 11:23:57 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/19 00:58:33 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ size_t	get_var_end(const char *token)
 	while (token[end] && (!ft_strchr("\"'", token[end]) || quote_char))
 	{
 		if (token[end] == quote_char || (token[0] == '$'
-				&& (ft_isspace(token[end]) || ft_strchr("\"'", token[end]))))
+				&& (ft_isspace(token[end])
+					|| ft_strchr("\"';()[]{}+-*/=", token[end]))))
 			break ;
 		if (quote_char != '\'' && token[end] == '$' && end != 0)
 			return (end);

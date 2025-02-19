@@ -1,0 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_commands.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/18 23:19:19 by jarao-de          #+#    #+#             */
+/*   Updated: 2025/02/19 00:20:42 by jarao-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	expand_arguments(t_list *env, int last_status, t_list *arguments)
+{
+	t_list	*current;
+	char	*expanded_content;
+	char	*old_content;
+
+	current = arguments;
+	while (current)
+	{
+		old_content = (char *)current->content;
+		expanded_content = expand_token(env, last_status, old_content);
+		if (!expanded_content)
+			return (0);
+		current->content = expanded_content;
+		free(old_content);
+		current = current->next;
+	}
+	return (1);
+}
+
+int	expand_redir(t_list *env, int last_status, t_list *redir)
+{
+	t_list			*current;
+	t_redirection	*current_redir;
+	char			*expanded_target;
+	char			*old_target;
+
+	current = redir;
+	while (current)
+	{
+		current_redir = (t_redirection *)current->content;
+		if (!is_heredoc(current_redir->type))
+		{
+			old_target = current_redir->target;
+			expanded_target = expand_token(env, last_status, old_target);
+			if (!expanded_target)
+				return (0);
+			current_redir->target = expanded_target;
+			free(old_target);
+		}
+		current = current->next;
+	}
+	return (1);
+}
+
+int	expand_commands(t_list *env, int last_status, t_list *cmds)
+{
+	t_list		*current;
+	t_command	*current_cmd;
+
+	current = cmds;
+	while (current)
+	{
+		current_cmd = (t_command *)current->content;
+		if (!expand_arguments(env, last_status, current_cmd->arguments)
+			|| !expand_redir(env, last_status, current_cmd->input_redir)
+			|| !expand_redir(env, last_status, current_cmd->output_redir))
+			return (0);
+		current = current->next;
+	}
+	return (1);
+}

@@ -19,7 +19,8 @@ SRC_FILES = main.c \
 			expand/env_vars_list.c \
 			expand/envp_generator.c \
 			expand/extract_vars.c \
-			expand/expand_token.c
+			expand/expand_token.c \
+			expand/expand_commands.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))

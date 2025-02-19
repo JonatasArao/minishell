@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/18 22:26:40 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:45:03 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char		*get_next_token(const char *s);
 t_list		*extract_tokens(const char *s);
 
 int			is_valid_quotes(const char *s);
+
+int			is_heredoc(const char *token);
 
 int			is_input_redirection(const char *token);
 
@@ -106,5 +108,7 @@ char		*concat_vars(t_list *vars);
 int			expand_var(t_list *env, int last_status, char **var);
 
 char		*expand_token(t_list *env, int last_status, char *token);
+
+int			expand_commands(t_list *env, int last_status, t_list *cmds);
 
 #endif
