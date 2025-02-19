@@ -6,20 +6,19 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:19:19 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 17:16:59 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:01:11 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_ambiguous_redirect(char *old_target, char *expanded_target)
+int	is_ambiguous_redirect(char *old_target, char *new_target)
 {
-	if (*expanded_target && !ft_strchr(expanded_target, ' '))
+	if (*new_target && !ft_strchr(new_target, ' '))
 		return (0);
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(old_target, 2);
 	ft_putendl_fd(": ambiguous redirect", 2);
-	free(expanded_target);
 	return (1);
 }
 
@@ -27,8 +26,8 @@ int	expand_redir(t_list *env, int last_status, t_list *redir)
 {
 	t_list			*current;
 	t_redirection	*current_redir;
-	char			*expanded_target;
 	char			*old_target;
+	char			*new_target;
 
 	current = redir;
 	while (current)
@@ -37,11 +36,13 @@ int	expand_redir(t_list *env, int last_status, t_list *redir)
 		if (!is_heredoc(current_redir->type))
 		{
 			old_target = current_redir->target;
-			expanded_target = expand_token(env, last_status, old_target);
-			if (!expanded_target
-				|| is_ambiguous_redirect(old_target, expanded_target))
+			new_target = expand_token(env, last_status, old_target);
+			if (new_target
+				&& is_ambiguous_redirect(old_target, new_target))
+				ft_delpointer((void **) &new_target);
+			if (!new_target)
 				return (0);
-			current_redir->target = expanded_target;
+			current_redir->target = new_target;
 			free(old_target);
 		}
 		current = current->next;
