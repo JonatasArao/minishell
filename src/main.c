@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 17:04:01 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:14:05 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ void	free_minishell_loop(t_minish *msh)
 		ft_lstclear(&msh->commands, free_command);
 	if (msh->input)
 		ft_delpointer((void **) &msh->input);
+}
+
+void	init_minishell(t_minish *msh, char **envp)
+{
+	msh->env_vars = extract_env_vars(envp);
+	msh->tokens = NULL;
+	msh->commands = NULL;
+	msh->input = NULL;
+	msh->last_status = 0;
 }
 
 void	destroy_minishell(t_minish *msh)
@@ -91,8 +100,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-	msh.last_status = 0;
-	msh.env_vars = extract_env_vars(envp);
+	init_minishell(&msh, envp);
 	if (!msh.env_vars)
 		return (1);
 	while (1)
