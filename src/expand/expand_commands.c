@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:19:19 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/20 22:59:08 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/20 23:28:20 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ t_list	*expand_commands(t_list *env, int last_status, t_list *cmds)
 	while (current)
 	{
 		current_cmd = (t_command *)current->content;
-		if (!expand_arguments(env, last_status, current_cmd->arguments)
-			|| !expand_redir(env, last_status, current_cmd->redirections))
+		if (!expand_redir(env, last_status, current_cmd->redirections)
+			|| !expand_arguments(env, last_status, current_cmd->arguments))
 		{
 			ft_lstclear(&cmds, free_command);
 			return (NULL);
