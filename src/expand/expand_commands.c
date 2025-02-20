@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:19:19 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 18:01:11 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/20 22:59:08 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ t_list	*expand_commands(t_list *env, int last_status, t_list *cmds)
 	{
 		current_cmd = (t_command *)current->content;
 		if (!expand_arguments(env, last_status, current_cmd->arguments)
-			|| !expand_redir(env, last_status, current_cmd->input_redir)
-			|| !expand_redir(env, last_status, current_cmd->output_redir))
+			|| !expand_redir(env, last_status, current_cmd->redirections))
 		{
 			ft_lstclear(&cmds, free_command);
 			return (NULL);

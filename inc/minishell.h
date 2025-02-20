@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 17:53:31 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/20 22:56:42 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 typedef struct s_command
 {
 	t_list	*arguments;
-	t_list	*input_redir;
-	t_list	*output_redir;
+	t_list	*redirections;
 	int		input_fd;
 	int		output_fd;
 	int		status;
@@ -118,5 +117,13 @@ int			expand_redir(t_list *env, int last_status, t_list *redir);
 int			expand_arguments(t_list *env, int last_status, t_list *arguments);
 
 t_list		*expand_commands(t_list *env, int last_status, t_list *cmds);
+
+void		free_minishell_loop(t_minish *msh);
+
+void		init_minishell(t_minish *msh, char **envp);
+
+void		destroy_minishell(t_minish *msh);
+
+int			process_input(t_minish *msh);
 
 #endif

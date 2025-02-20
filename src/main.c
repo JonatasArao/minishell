@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/20 12:14:05 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/20 22:57:27 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,11 @@ void	print_commands(t_list *commands)
 			printf("Argument: %s\n", (char *)node->content);
 			node = node->next;
 		}
-		node = cmd->input_redir;
+		node = cmd->redirections;
 		while (node)
 		{
 			redir = (t_redirection *)node->content;
-			printf("Input Redirection: %s %s\n", redir->type, redir->target);
-			node = node->next;
-		}
-		node = cmd->output_redir;
-		while (node)
-		{
-			redir = (t_redirection *)node->content;
-			printf("Output Redirection: %s %s\n", redir->type, redir->target);
+			printf("Redirection: %s %s\n", redir->type, redir->target);
 			node = node->next;
 		}
 		printf("----------\n");
