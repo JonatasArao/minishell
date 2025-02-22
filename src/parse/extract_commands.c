@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 21:26:59 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/10 22:04:27 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/20 22:58:25 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ t_command	*alloc_command(void)
 	if (!cmd)
 		return (NULL);
 	cmd->arguments = NULL;
-	cmd->input_redir = NULL;
-	cmd->output_redir = NULL;
+	cmd->redirections = NULL;
+	cmd->input_fd = -1;
+	cmd->output_fd = -1;
+	cmd->status = 0;
 	return (cmd);
 }
 
@@ -36,10 +38,8 @@ t_list	*parse_tokens(t_list *token_node, t_command *cmd)
 	while (token_node && status)
 	{
 		token = (char *)token_node->content;
-		if (prev_token && is_input_redirection(prev_token))
-			status = lstadd_redir(&cmd->input_redir, prev_token, token);
-		else if (prev_token && is_output_redirection(prev_token))
-			status = lstadd_redir(&cmd->output_redir, prev_token, token);
+		if (prev_token && is_redirection(prev_token))
+			status = lstadd_redir(&cmd->redirections, prev_token, token);
 		else if (prev_token && is_pipe(prev_token))
 			break ;
 		else if (!is_redirection(token) && !is_pipe(token))

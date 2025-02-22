@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:43:00 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/11 09:29:25 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:05:12 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	lstadd_str(t_list **head, char *str)
+int	lstadd_str(t_list **head, const char *str)
 {
 	char	*new_str;
 	t_list	*new_node;
@@ -30,7 +30,7 @@ int	lstadd_str(t_list **head, char *str)
 	return (1);
 }
 
-int	lstadd_redir(t_list **head, char *type, char *target)
+int	lstadd_redir(t_list **head, const char *type, const char *target)
 {
 	t_redirection	*new_redir;
 	t_list			*new_node;
