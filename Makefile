@@ -17,7 +17,7 @@ SRC_FILES = main.c \
 			parse/token_validation.c \
 			parse/token_checks.c \
 			expand/env_vars_list.c \
-			expand/envp_generator.c \
+			expand/envp_manager.c \
 			expand/extract_vars.c \
 			expand/expand_token.c \
 			expand/expand_commands.c

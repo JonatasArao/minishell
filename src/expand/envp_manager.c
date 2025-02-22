@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp_generator.c                                   :+:      :+:    :+:   */
+/*   envp_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 07:18:15 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/13 07:59:01 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/22 00:47:50 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,30 @@ char	**get_envp(t_list *env)
 	}
 	envp[i] = NULL;
 	return (envp);
+}
+
+t_list	*extract_env_vars(char **envp)
+{
+	t_list	*env;
+	char	*saveptr;
+	char	*key;
+	char	*value;
+
+	if (!envp)
+		return (NULL);
+	env = NULL;
+	while (*envp != NULL)
+	{
+		key = ft_strtok_r(*envp, "=", &saveptr);
+		value = saveptr;
+		if (!value)
+			value = "";
+		if (*envp[0] == '=' || !lstadd_env_var(&env, key, value))
+		{
+			ft_lstclear(&env, free_env_var);
+			return (NULL);
+		}
+		envp++;
+	}
+	return (env);
 }

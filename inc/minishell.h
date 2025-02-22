@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/20 22:56:42 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/22 02:01:39 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,13 @@ t_list		*extract_commands(t_list *tokens);
 
 void		free_env_var(void *env_var_ptr);
 
-int			lstadd_env_var(t_list **head, const char *key, const char *value);
+int			lstadd_env_var(t_list **env, const char *key, const char *value);
 
 t_env_var	*get_env_var(t_list *env, const char *key);
 
 int			lstset_env_var(t_list **env, const char *key, const char *value);
+
+int			lstrm_env_var(t_list **env, const char *key);
 
 t_list		*extract_env_vars(char **envp);
 
