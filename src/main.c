@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/20 22:57:27 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:02:07 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,6 @@ void	destroy_minishell(t_minish *msh)
 	free_minishell_loop(msh);
 	if (msh->env_vars)
 		ft_lstclear(&msh->env_vars, free_env_var);
-}
-
-void	print_commands(t_list *commands)
-{
-	t_command		*cmd;
-	t_list			*node;
-	t_redirection	*redir;
-
-	while (commands)
-	{
-		cmd = (t_command *)commands->content;
-		node = cmd->arguments;
-		while (node)
-		{
-			printf("Argument: %s\n", (char *)node->content);
-			node = node->next;
-		}
-		node = cmd->redirections;
-		while (node)
-		{
-			redir = (t_redirection *)node->content;
-			printf("Redirection: %s %s\n", redir->type, redir->target);
-			node = node->next;
-		}
-		printf("----------\n");
-		commands = commands->next;
-	}
 }
 
 int	process_input(t_minish *msh)
@@ -103,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 			|| (ft_strncmp(msh.input, "exit", 4) == 0 && msh.input[4] == '\0'))
 			break ;
 		if (process_input(&msh))
-			print_commands(msh.commands);
+			msh_echo(msh.commands->content);
 		if (!ft_strall(msh.input, ft_isspace))
 			add_history(msh.input);
 		free_minishell_loop(&msh);
