@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 08:50:14 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/01/24 14:47:07 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:59:47 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,7 @@ char	*ft_strtok(char *str, const char *delim);
 char	*ft_strtok_r(char *str, const char *delim, char **saveptr);
 
 int		ft_isspace(int c);
+
+int		ft_lstrm(t_list **list, void *content, void (*del)(void *));
 
 #endif
