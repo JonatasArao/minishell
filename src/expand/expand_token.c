@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:53:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 14:43:01 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/25 04:56:58 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	expand_var(t_list *env, int last_status, char **var)
 
 	new_value = NULL;
 	content = (char *)(*var);
-	if (content[0] == '$')
+	if (content[0] == '$' && content[1] != '\0')
 		new_value = get_var_value(env, last_status, content + 1);
 	else
 	{
