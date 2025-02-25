@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:45:44 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/22 01:52:20 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:02:45 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,28 +89,12 @@ int	lstset_env_var(t_list **env, const char *key, const char *value)
 
 int	lstrm_env_var(t_list **env, const char *key)
 {
-	t_list		*current;
-	t_list		*previous;
 	t_env_var	*target_var;
 
 	target_var = get_env_var(*env, key);
 	if (!target_var)
 		return (0);
-	current = *env;
-	previous = NULL;
-	while (current)
-	{
-		if (current->content == target_var)
-		{
-			if (previous)
-				previous->next = current->next;
-			else
-				*env = current->next;
-			ft_lstdelone(current, free_env_var);
-			return (1);
-		}
-		previous = current;
-		current = current->next;
-	}
-	return (0);
+	if (!ft_lstrm(env, target_var, free_env_var))
+		return (0);
+	return (1);
 }

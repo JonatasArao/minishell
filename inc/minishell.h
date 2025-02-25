@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/25 03:38:29 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:14:31 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			is_ambiguous_redirect(char *old_target, char *new_target);
 
 int			expand_redir(t_list *env, int last_status, t_list *redir);
 
-int			expand_arguments(t_list *env, int last_status, t_list *arguments);
+int			expand_arguments(t_list *env, int last_status, t_list **arguments);
 
 t_list		*expand_commands(t_list *env, int last_status, t_list *cmds);
 

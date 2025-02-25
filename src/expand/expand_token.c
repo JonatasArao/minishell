@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:53:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/25 04:56:58 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:06:31 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*get_var_value(t_list *env, int last_status, const char *key)
 	else
 	{
 		env_var = get_env_var(env, key);
-		if (!env_var)
-			result = ft_strdup("");
+		if (!env_var || (env_var && env_var->value && !(*env_var->value)))
+			result = NULL;
 		else
 			result = ft_strdup(env_var->value);
 	}
@@ -69,41 +69,12 @@ int	expand_var(t_list *env, int last_status, char **var)
 		new_value = expand_quotes(content);
 		if (new_value == content)
 			return (1);
+		if (!new_value)
+			return (0);
 	}
-	if (!new_value)
-		return (0);
 	free(*var);
 	*var = new_value;
 	return (1);
-}
-
-char	*concat_vars(t_list *vars)
-{
-	size_t	len;
-	t_list	*current;
-	char	*token;
-	char	*current_var;
-
-	len = 0;
-	current = vars;
-	while (current)
-	{
-		current_var = current->content;
-		len += ft_strlen(current_var);
-		current = current->next;
-	}
-	token = (char *)malloc(len + 1);
-	if (!token)
-		return (NULL);
-	token[0] = '\0';
-	current = vars;
-	while (current)
-	{
-		current_var = current->content;
-		ft_strlcat(token, current_var, len + 1);
-		current = current->next;
-	}
-	return (token);
 }
 
 char	*expand_token(t_list *env, int last_status, char *token)

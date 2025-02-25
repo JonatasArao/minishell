@@ -20,6 +20,7 @@ SRC_FILES = main.c \
 			expand/envp_manager.c \
 			expand/extract_vars.c \
 			expand/expand_token.c \
+			expand/concat_vars.c \
 			expand/expand_commands.c \
 			builtin/echo.c \
 			builtin/pwd.c \
