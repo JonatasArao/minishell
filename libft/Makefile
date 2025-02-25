@@ -56,7 +56,8 @@ CUSTOM		=	get_next_line.c \
 				ft_strtok.c \
 				ft_strtok_r.c \
 				ft_isspace.c \
-				ft_lstrm.c
+				ft_lstrm.c \
+				ft_free_nt_matrix.c
 OBJS_DIR	=	objs
 OBJS		=	$(addprefix $(OBJS_DIR)/, \
 				$(MANDATORY:.c=.o) \
