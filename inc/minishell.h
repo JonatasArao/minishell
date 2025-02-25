@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/24 18:01:37 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/25 03:38:29 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,19 @@ void		destroy_minishell(t_minish *msh);
 int			process_input(t_minish *msh);
 
 int			msh_echo(t_command *cmd);
+
+int			msh_pwd(t_command *cmd);
+
+int			msh_cd(t_list **env, t_command *cmd);
+
+int			msh_env(t_list *env, t_command *cmd);
+
+int			msh_export(t_list **env, t_command *cmd);
+
+int			msh_unset(t_list **env, t_command *cmd);
+
+int			msh_exit(t_minish *msh, t_command *cmd);
+
+int			launch_builtin(t_minish *msh, t_command *cmd);
 
 #endif

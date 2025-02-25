@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/24 18:02:07 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:35:14 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,10 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		msh.input = readline("$ ");
-		if (msh.input == NULL
-			|| (ft_strncmp(msh.input, "exit", 4) == 0 && msh.input[4] == '\0'))
+		if (msh.input == NULL)
 			break ;
 		if (process_input(&msh))
-			msh_echo(msh.commands->content);
+			msh.last_status = launch_builtin(&msh, msh.commands->content);
 		if (!ft_strall(msh.input, ft_isspace))
 			add_history(msh.input);
 		free_minishell_loop(&msh);

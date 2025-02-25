@@ -21,7 +21,14 @@ SRC_FILES = main.c \
 			expand/extract_vars.c \
 			expand/expand_token.c \
 			expand/expand_commands.c \
-			builtin/echo.c
+			builtin/echo.c \
+			builtin/pwd.c \
+			builtin/cd.c \
+			builtin/env.c \
+			builtin/export.c \
+			builtin/unset.c \
+			builtin/exit.c \
+			execute/launch_builtin.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))
@@ -59,6 +66,9 @@ $(OBJS_DIR)/expand-%.o: $(SRC_DIR)/expand/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR)/builtin-%.o: $(SRC_DIR)/builtin/%.c $(HEADER) | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR)/execute-%.o: $(SRC_DIR)/execute/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 .PHONY: all clean fclean re
