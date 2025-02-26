@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:19:19 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/25 15:18:45 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:05:24 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	expand_arguments(t_list *env, int last_status, t_list **arguments)
 			current = current->next;
 		}
 	}
-	if (!(*arguments))
-		return (0);
 	return (1);
 }
 
