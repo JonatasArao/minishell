@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:45:44 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 07:49:08 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:27:51 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	lstset_env_var(t_list **env, const char *key, const char *value)
 	env_var = get_env_var(*env, key);
 	if (!env_var)
 		return (lstadd_env_var(env, key, value));
+	if (!value)
+		return (0);
 	free(env_var->value);
 	env_var->value = ft_strdup(value);
 	if (!env_var->value)

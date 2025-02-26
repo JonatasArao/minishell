@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 01:00:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 08:06:39 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:31:16 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	msh_export(t_list **env, t_command *cmd)
 		key = ft_strtok_r(current_arg, "=", &value);
 		if (!equal_ptr)
 			value = NULL;
-		if (!lstset_env_var(env, key, value))
+		if (value && !lstset_env_var(env, key, value))
 			return (1);
 		args = args->next;
 	}
