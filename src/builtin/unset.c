@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 02:13:42 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/25 02:43:41 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 07:39:50 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	msh_unset(t_list **env, t_command *cmd)
 	char	*current_arg;
 
 	args = cmd->arguments->next;
-	if (!args)
-		return (msh_env(*env, NULL));
 	while (args)
 	{
 		current_arg = (char *)args->content;

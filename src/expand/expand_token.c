@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:53:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/25 15:06:31 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 08:07:44 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	*get_var_value(t_list *env, int last_status, const char *key)
 	else
 	{
 		env_var = get_env_var(env, key);
-		if (!env_var || (env_var && env_var->value && !(*env_var->value)))
+		if (!env_var || (env_var && !env_var->value)
+			|| (env_var && env_var->value && !(*env_var->value)))
 			result = NULL;
 		else
 			result = ft_strdup(env_var->value);

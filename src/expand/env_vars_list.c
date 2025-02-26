@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:45:44 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/25 15:02:45 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 07:49:08 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,15 @@ int	lstadd_env_var(t_list **env, const char *key, const char *value)
 	t_env_var	*new_env;
 	t_list		*new_node;
 
-	if (!value || !key || !(*key))
+	if (!key || !(*key))
 		return (0);
-	new_env = malloc(sizeof(t_env_var));
+	new_env = ft_calloc(1, sizeof(t_env_var));
 	if (!new_env)
 		return (0);
 	new_env->key = ft_strdup(key);
-	new_env->value = ft_strdup(value);
-	if (!new_env->key || !new_env->value)
+	if (value)
+		new_env->value = ft_strdup(value);
+	if (!new_env->key)
 	{
 		free_env_var(new_env);
 		return (0);
