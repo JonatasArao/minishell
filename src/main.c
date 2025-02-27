@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gugomes- <gugomes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 09:42:44 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:26:50 by gugomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_minishell(t_minish *msh, char **envp)
 	msh->tokens = NULL;
 	msh->commands = NULL;
 	msh->input = NULL;
+	msh->saved_fd[0] = -1;
+	msh->saved_fd[1] = -1;
 	msh->last_status = 0;
 }
 

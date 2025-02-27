@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gugomes- <gugomes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 11:27:53 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:22:53 by gugomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_minish
 	t_list	*tokens;
 	t_list	*commands;
 	t_list	*env_vars;
+	int		saved_fd[2];
 	int		last_status;
 }	t_minish;
 
@@ -144,5 +145,7 @@ int			msh_unset(t_list **env, t_command *cmd);
 int			msh_exit(t_minish *msh, t_command *cmd);
 
 int			launch_builtin(t_minish *msh, t_command *cmd);
+
+char		**get_argv(t_list *args);
 
 #endif

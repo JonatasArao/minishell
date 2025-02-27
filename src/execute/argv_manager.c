@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argv_generator.c                                   :+:      :+:    :+:   */
+/*   argv_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gugomes- <gugomes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:37:31 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/25 15:50:12 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:28:50 by gugomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**get_argv(t_list *args)
 	i = 0;
 	while (current)
 	{
-		arg = (char *) args->content;
+		arg = (char *) current->content;
 		argv[i] = ft_strdup(arg);
 		if (!argv[i])
 			return (ft_free_matrix((void **) argv, i));
