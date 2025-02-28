@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 15:03:37 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:29:40 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,60 @@ int			msh_unset(t_list **env, t_command *cmd);
 
 int			msh_exit(t_minish *msh, t_command *cmd);
 
+int			is_builtin(t_command *cmd);
+
 int			launch_builtin(t_minish *msh, t_command *cmd);
 
 char		**get_argv(t_list *args);
+
+int			backup_fds(t_minish *msh);
+
+void		restore_fds(t_minish *msh);
+
+int			apply_input_redirection(int input_fd);
+
+int			apply_output_redirection(int output_fd);
+
+int			apply_redirections(t_command *cmd);
+
+int			wait_pipeline(pid_t last_pid, int num_commands);
+
+int			execute_pipeline(t_minish *msh, int num_commands);
+
+int			wait_single(pid_t pid);
+
+int			execute_single(t_minish *msh);
+
+int			execute_commands(t_minish *msh);
+
+char		*get_full_path(char *token, char *cmd);
+
+char		*search_path(char *path, char *cmd);
+
+char		*get_command_path(t_list *env, char *cmd);
+
+int			launch_process(t_minish *msh, t_list *cmd_node,
+				int (*launcher)(t_minish *, t_command *));
+
+void		child_process(t_minish *msh, t_list *cmd_node, int input_fd,
+				int (*launcher)(t_minish *, t_command *));
+
+int			parent_process(t_list *cmd_node, pid_t pid, int input_fd);
+
+void		free_execution(char *path, char **argv, char **envp);
+
+int			is_directory(char *path);
+
+int			get_exec_error(char *path, char **argv);
+
+int			launch_executable(t_minish *msh, t_command *cmd);
+
+int			is_fd_open(int fd, char *target);
+
+int			open_output_redirections(t_redirection *redir, int *output_fd);
+
+int			open_input_redirections(t_redirection *redir, int *input_fd);
+
+int			open_redirections(t_command *cmd);
 
 #endif

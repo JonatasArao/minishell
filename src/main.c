@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 15:43:28 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:55:17 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		msh.input = readline("$ ");
+		msh.input = readline("Minishell $ ");
 		if (msh.input == NULL)
 			break ;
 		if (process_input(&msh))
-			msh.last_status = launch_builtin(&msh, msh.commands->content);
+			msh.last_status = execute_commands(&msh);
 		if (!ft_strall(msh.input, ft_isspace))
 			add_history(msh.input);
 		free_minishell_loop(&msh);

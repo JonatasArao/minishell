@@ -29,8 +29,14 @@ SRC_FILES = main.c \
 			builtin/export.c \
 			builtin/unset.c \
 			builtin/exit.c \
+			execute/apply_redirections.c \
+			execute/execute_commands.c \
+			execute/get_command_path.c \
+			execute/argv_manager.c	\
+			execute/launch_executable.c \
 			execute/launch_builtin.c \
-			execute/argv_manager.c
+			execute/launch_process.c \
+			execute/open_redirections.c		
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))
