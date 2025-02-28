@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gugomes- <gugomes-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/27 15:26:50 by gugomes-         ###   ########.fr       */
+/*   Updated: 2025/02/28 06:08:14 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	destroy_minishell(t_minish *msh)
 	free_minishell_loop(msh);
 	if (msh->env_vars)
 		ft_lstclear(&msh->env_vars, free_env_var);
+	if (msh->saved_fd[0] != -1)
+		close(msh->saved_fd[0]);
+	if (msh->saved_fd[1] != -1)
+		close(msh->saved_fd[1]);
 }
 
 int	process_input(t_minish *msh)
