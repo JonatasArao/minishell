@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gugomes- <gugomes-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/27 16:22:53 by gugomes-         ###   ########.fr       */
+/*   Updated: 2025/02/28 02:20:01 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_command
 	pid_t	pid;
 	int		input_fd;
 	int		output_fd;
-	int		status;
 }	t_command;
 
 typedef struct s_redirection

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 21:26:59 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 11:28:20 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/28 01:55:49 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_command	*alloc_command(void)
 	cmd->pid = -1;
 	cmd->input_fd = -1;
 	cmd->output_fd = -1;
-	cmd->status = 0;
 	return (cmd);
 }
 
