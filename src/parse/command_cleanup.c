@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 21:46:13 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 14:50:15 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:07:55 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,13 @@ void	free_command(void *cmd_ptr)
 		if (cmd->redirections)
 			ft_lstclear(&cmd->redirections, free_redirection);
 		if (cmd->input_fd != -1)
-		{
 			close(cmd->input_fd);
-			cmd->input_fd = -1;
-		}
 		if (cmd->output_fd != -1)
-		{
 			close(cmd->output_fd);
-			cmd->output_fd = -1;
-		}
+		if (cmd->pipe_fd[0] != -1)
+			close(cmd->pipe_fd[0]);
+		if (cmd->pipe_fd[1] != -1)
+			close(cmd->pipe_fd[1]);
 		free(cmd);
 	}
 }

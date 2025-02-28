@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 21:26:59 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 01:55:49 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:05:10 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_command	*alloc_command(void)
 	cmd->pid = -1;
 	cmd->input_fd = -1;
 	cmd->output_fd = -1;
+	cmd->pipe_fd[0] = -1;
+	cmd->pipe_fd[1] = -1;
 	return (cmd);
 }
 

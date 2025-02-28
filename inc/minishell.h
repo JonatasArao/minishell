@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 02:20:01 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:03:37 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 # include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 typedef struct s_command
 {
 	t_list	*arguments;
 	t_list	*redirections;
-	pid_t	pid;
+	int		pipe_fd[2];
 	int		input_fd;
 	int		output_fd;
+	pid_t	pid;
 }	t_command;
 
 typedef struct s_redirection

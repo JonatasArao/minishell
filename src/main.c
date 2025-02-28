@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 06:08:14 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:43:28 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,15 @@ void	destroy_minishell(t_minish *msh)
 	if (msh->env_vars)
 		ft_lstclear(&msh->env_vars, free_env_var);
 	if (msh->saved_fd[0] != -1)
+	{
 		close(msh->saved_fd[0]);
+		close(STDIN_FILENO);
+	}
 	if (msh->saved_fd[1] != -1)
+	{
 		close(msh->saved_fd[1]);
+		close(STDOUT_FILENO);
+	}
 }
 
 int	process_input(t_minish *msh)
