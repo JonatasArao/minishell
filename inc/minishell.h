@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:02:57 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 04:50:36 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int			apply_input_redirection(int input_fd);
 
 int			apply_output_redirection(int output_fd);
 
-int			apply_redirections(t_minish *msh, t_command *cmd);
+int			apply_redirections(t_command *cmd);
 
 int			wait_pipeline(pid_t last_pid, int num_commands);
 
@@ -202,7 +202,9 @@ int			open_output_redirections(t_redirection *redir, int *output_fd);
 int			open_input_redirections(t_minish *msh, t_redirection *redir,
 				int *input_fd);
 
-int			open_redirections(t_minish *msh, t_command *cmd);
+int			open_cmd_redirections(t_minish *msh, t_command *cmd);
+
+int			open_redirections(t_minish *msh, t_list *cmds);
 
 size_t		get_heredoc_var_end(const char *line);
 

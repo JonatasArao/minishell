@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:14:18 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 05:08:01 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*process_input_line(t_minish *msh, char *input, int has_quote)
 {
 	char	*line;
 
-	if (has_quote)
+	if (has_quote || !(*input))
 	{
 		line = ft_strdup(input);
 		if (!line)
@@ -98,19 +98,18 @@ int	capture_heredoc(t_minish *msh, char *delim, int heredoc_fd)
 int	open_heredoc(t_minish *msh, char *delim)
 {
 	int		heredoc_fd[2];
-	int		status;
 
 	if (pipe(heredoc_fd) == -1)
 	{
 		perror("minishell: heredoc:");
 		return (0);
 	}
-	status = capture_heredoc(msh, delim, heredoc_fd[1]);
-	close(heredoc_fd[1]);
-	if (!status)
+	if (!capture_heredoc(msh, delim, heredoc_fd[1]))
 	{
+		close(heredoc_fd[1]);
 		close(heredoc_fd[0]);
 		return (-1);
 	}
+	close(heredoc_fd[1]);
 	return (heredoc_fd[0]);
 }

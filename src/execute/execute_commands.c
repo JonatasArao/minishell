@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:20:24 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:03:15 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 04:41:10 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	execute_single(t_minish *msh)
 	{
 		if (!backup_fds(msh))
 			return (1);
-		if (!apply_redirections(msh, cmd))
+		if (!apply_redirections(cmd))
 		{
 			restore_fds(msh);
 			return (1);

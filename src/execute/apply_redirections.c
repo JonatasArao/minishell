@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:16:27 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:02:34 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 04:33:15 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,11 @@ int	apply_output_redirection(int output_fd)
 	return (1);
 }
 
-int	apply_redirections(t_minish *msh, t_command *cmd)
+int	apply_redirections(t_command *cmd)
 {
 	int	input_fd;
 	int	output_fd;
 
-	if (!open_redirections(msh, cmd))
-		return (0);
 	input_fd = cmd->input_fd;
 	output_fd = cmd->output_fd;
 	if (!apply_input_redirection(input_fd))
