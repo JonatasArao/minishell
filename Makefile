@@ -36,7 +36,9 @@ SRC_FILES = main.c \
 			execute/launch_executable.c \
 			execute/launch_builtin.c \
 			execute/launch_process.c \
-			execute/open_redirections.c		
+			execute/open_redirections.c \
+			execute/open_heredoc.c \
+			execute/expand_heredoc.c	
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))

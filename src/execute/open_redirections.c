@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:15:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 18:18:36 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 04:01:40 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	open_output_redirections(t_redirection *redir, int *output_fd)
 	return (1);
 }
 
-int	open_input_redirections(t_redirection *redir, int *input_fd)
+int	open_input_redirections(t_minish *msh, t_redirection *redir,
+		int *input_fd)
 {
 	char	*type;
 	int		fd;
@@ -63,13 +64,18 @@ int	open_input_redirections(t_redirection *redir, int *input_fd)
 		*input_fd = fd;
 	}
 	else if (ft_strncmp(type, "<<", 2) == 0 && type[2] == '\0')
-		printf("heredoc\n");
+	{
+		fd = open_heredoc(msh, redir->target);
+		if (!is_fd_open(fd, redir->target))
+			return (0);
+		*input_fd = fd;
+	}
 	else
 		return (0);
 	return (1);
 }
 
-int	open_redirections(t_command *cmd)
+int	open_redirections(t_minish *msh, t_command *cmd)
 {
 	t_list			*redir_list;
 	t_redirection	*redir;
@@ -82,7 +88,7 @@ int	open_redirections(t_command *cmd)
 		{
 			if (cmd->input_fd != -1)
 				close(cmd->input_fd);
-			if (!open_input_redirections(redir, &cmd->input_fd))
+			if (!open_input_redirections(msh, redir, &cmd->input_fd))
 				return (0);
 		}
 		if (is_output_redirection(redir->type))

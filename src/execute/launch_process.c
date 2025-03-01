@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:17:49 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 00:11:44 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 04:03:38 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	child_process(t_minish *msh, t_list *cmd_node, int input_fd,
 
 	cmd = (t_command *)cmd_node->content;
 	setup_child_pipes(msh, cmd_node, input_fd);
-	if (!apply_redirections(cmd))
+	if (!apply_redirections(msh, cmd))
 		exit_child_process(msh, cmd_node, 1);
 	exit_code = launcher(msh, cmd);
 	exit_child_process(msh, cmd_node, exit_code);
