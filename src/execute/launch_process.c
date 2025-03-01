@@ -6,11 +6,48 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:17:49 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 18:18:15 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 00:11:44 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exit_child_process(t_minish *msh, t_list *cmd_node, int exit_code)
+{
+	if (!cmd_node->next)
+	{
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
+	}
+	destroy_minishell(msh);
+	exit(exit_code);
+}
+
+void	setup_child_pipes(t_minish *msh, t_list *cmd_node, int input_fd)
+{
+	t_command	*cmd;
+
+	cmd = (t_command *)cmd_node->content;
+	if (input_fd != STDIN_FILENO)
+	{
+		if (dup2(input_fd, STDIN_FILENO) == -1)
+		{
+			perror("minishell: dup2");
+			exit_child_process(msh, cmd_node, 1);
+		}
+		close(input_fd);
+	}
+	if (cmd_node->next)
+	{
+		close(cmd->pipe_fd[0]);
+		if (dup2(cmd->pipe_fd[1], STDOUT_FILENO) == -1)
+		{
+			perror("minishell: dup2");
+			exit_child_process(msh, cmd_node, 1);
+		}
+		close(cmd->pipe_fd[1]);
+	}
+}
 
 void	child_process(t_minish *msh, t_list *cmd_node, int input_fd,
 	int (*launcher)(t_minish *, t_command *))
@@ -19,25 +56,11 @@ void	child_process(t_minish *msh, t_list *cmd_node, int input_fd,
 	int			exit_code;
 
 	cmd = (t_command *)cmd_node->content;
-	if (input_fd != STDIN_FILENO)
-	{
-		dup2(input_fd, STDIN_FILENO);
-		close(input_fd);
-	}
-	if (cmd_node->next)
-	{
-		close(cmd->pipe_fd[0]);
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
-		close(cmd->pipe_fd[1]);
-	}
+	setup_child_pipes(msh, cmd_node, input_fd);
 	if (!apply_redirections(cmd))
-	{
-		destroy_minishell(msh);
-		exit(1);
-	}
+		exit_child_process(msh, cmd_node, 1);
 	exit_code = launcher(msh, cmd);
-	destroy_minishell(msh);
-	exit(exit_code);
+	exit_child_process(msh, cmd_node, exit_code);
 }
 
 int	parent_process(t_list *cmd_node, pid_t pid, int input_fd)
