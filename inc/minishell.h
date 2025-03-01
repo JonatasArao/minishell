@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:50:36 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 06:37:09 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_command
 	int		pipe_fd[2];
 	int		input_fd;
 	int		output_fd;
+	int		heredoc_fd;
 	pid_t	pid;
 }	t_command;
 
@@ -199,12 +200,10 @@ int			is_fd_open(int fd, char *target);
 
 int			open_output_redirections(t_redirection *redir, int *output_fd);
 
-int			open_input_redirections(t_minish *msh, t_redirection *redir,
+int			open_input_redirections(t_command *cmd, t_redirection *redir,
 				int *input_fd);
 
-int			open_cmd_redirections(t_minish *msh, t_command *cmd);
-
-int			open_redirections(t_minish *msh, t_list *cmds);
+int			open_redirections(t_command *cmd);
 
 size_t		get_heredoc_var_end(const char *line);
 
@@ -225,5 +224,10 @@ char		*process_input_line(t_minish *msh, char *input, int has_quote);
 int			capture_heredoc(t_minish *msh, char *delim, int heredoc_fd);
 
 int			open_heredoc(t_minish *msh, char *delim);
+
+int			apply_heredoc(t_minish *msh, t_command *cmd,
+				t_redirection *redir);
+
+int			setup_heredocs(t_minish *msh);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:49:28 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 07:15:14 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	process_input(t_minish *msh)
 	{
 		msh->commands = expand_commands(msh->env_vars,
 				msh->last_status, msh->commands);
-		if (!open_redirections(msh, msh->commands))
+		if (!setup_heredocs(msh))
 			ft_lstclear(&msh->commands, free_command);
 	}
 	if (!msh->commands)

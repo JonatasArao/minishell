@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:15:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:55:25 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 06:58:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	open_output_redirections(t_redirection *redir, int *output_fd)
 	return (1);
 }
 
-int	open_input_redirections(t_minish *msh, t_redirection *redir,
+int	open_input_redirections(t_command *cmd, t_redirection *redir,
 		int *input_fd)
 {
 	char	*type;
@@ -65,9 +65,7 @@ int	open_input_redirections(t_minish *msh, t_redirection *redir,
 	}
 	else if (ft_strncmp(type, "<<", 2) == 0 && type[2] == '\0')
 	{
-		fd = open_heredoc(msh, redir->target);
-		if (!is_fd_open(fd, redir->target))
-			return (0);
+		fd = cmd->heredoc_fd;
 		*input_fd = fd;
 	}
 	else
@@ -75,7 +73,7 @@ int	open_input_redirections(t_minish *msh, t_redirection *redir,
 	return (1);
 }
 
-int	open_cmd_redirections(t_minish *msh, t_command *cmd)
+int	open_redirections(t_command *cmd)
 {
 	t_list			*redir_list;
 	t_redirection	*redir;
@@ -86,9 +84,9 @@ int	open_cmd_redirections(t_minish *msh, t_command *cmd)
 		redir = (t_redirection *)redir_list->content;
 		if (is_input_redirection(redir->type))
 		{
-			if (cmd->input_fd != -1)
+			if (cmd->input_fd != cmd->heredoc_fd && cmd->input_fd != -1)
 				close(cmd->input_fd);
-			if (!open_input_redirections(msh, redir, &cmd->input_fd))
+			if (!open_input_redirections(cmd, redir, &cmd->input_fd))
 				return (0);
 		}
 		if (is_output_redirection(redir->type))
@@ -99,22 +97,6 @@ int	open_cmd_redirections(t_minish *msh, t_command *cmd)
 				return (0);
 		}
 		redir_list = redir_list->next;
-	}
-	return (1);
-}
-
-int	open_redirections(t_minish *msh, t_list *cmds)
-{
-	t_list		*current;
-	t_command	*current_cmd;
-
-	current = cmds;
-	while (current)
-	{
-		current_cmd = (t_command *)current->content;
-		if (!open_cmd_redirections(msh, current_cmd))
-			return (0);
-		current = current->next;
 	}
 	return (1);
 }
