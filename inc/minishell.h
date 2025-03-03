@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 06:37:09 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:56:57 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <readline/history.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include <sys/types.h>
 # include <fcntl.h>
 
 typedef struct s_command
@@ -205,7 +207,7 @@ int			open_input_redirections(t_command *cmd, t_redirection *redir,
 
 int			open_redirections(t_command *cmd);
 
-size_t		get_heredoc_var_end(const char *line);
+size_t		get_heredoc_var_end(const char *token);
 
 char		*get_next_heredoc_var(char const *token);
 

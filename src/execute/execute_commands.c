@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:20:24 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 06:26:54 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/02 01:12:47 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	wait_pipeline(pid_t last_pid, int num_commands)
 	int		last_status;
 
 	last_status = 0;
+	pid_status = 0;
 	while (num_commands > 0)
 	{
 		pid = waitpid(-1, &pid_status, 0);
@@ -65,6 +66,7 @@ int	wait_single(pid_t pid)
 	int	status;
 
 	status = 1;
+	pid_status = 0;
 	waitpid(pid, &pid_status, 0);
 	if (WIFEXITED(pid_status))
 		status = WEXITSTATUS(pid_status);

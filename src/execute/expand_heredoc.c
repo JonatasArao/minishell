@@ -6,26 +6,26 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:14 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 04:04:23 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:56:39 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_heredoc_var_end(const char *line)
+size_t	get_heredoc_var_end(const char *token)
 {
 	size_t		end;
 
-	if (line[0] == '\0')
+	if (token[0] == '\0')
 		return (0);
 	end = 0;
-	while (line[end])
+	while (token[end])
 	{
-		if (line[0] == '$' && (ft_isspace(line[end])
-				|| ft_strchr("\"';()[]{}+-*/=", line[end])
-				|| (end > 0 && line[end - 1] == '?')))
+		if (token[0] == '$' && (ft_isspace(token[end])
+				|| ft_strchr("\"';()[]{}+-*/=", token[end])
+				|| (end > 0 && token[end - 1] == '?')))
 			break ;
-		if (line[end] == '$' && end != 0)
+		if (token[end] == '$' && end != 0)
 			return (end);
 		end++;
 	}

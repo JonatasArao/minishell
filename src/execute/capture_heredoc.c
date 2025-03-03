@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 07:08:11 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/02 01:04:16 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,12 @@ int	capture_heredoc(t_minish *msh, char *delim, int heredoc_fd)
 	while (1)
 	{
 		input = readline("> ");
-		if (!input)
-			return (0);
-		if (is_delimiter(input, delim))
+		if (!input || is_delimiter(input, delim))
 		{
-			free(input);
+			if (!input)
+				ft_putchar_fd('\n', 1);
+			else
+				free(input);
 			break ;
 		}
 		line = process_input_line(msh, input, has_quote);
