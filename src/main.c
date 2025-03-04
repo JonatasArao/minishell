@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 07:15:14 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/04 05:07:40 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	init_minishell(t_minish *msh, char **envp)
 	msh->saved_fd[0] = -1;
 	msh->saved_fd[1] = -1;
 	msh->last_status = 0;
+	signal(SIGINT, sigint_action);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	destroy_minishell(t_minish *msh)
@@ -96,6 +98,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(msh.input);
 		free_minishell_loop(&msh);
 	}
+	ft_putstr_fd("exit\n", 1);
 	destroy_minishell(&msh);
 	return (0);
 }

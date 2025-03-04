@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:20:24 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/02 01:12:47 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/04 05:08:31 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	execute_pipeline(t_minish *msh, int num_commands)
 	int			last_status;
 
 	cmd_list = msh->commands;
+	signal(SIGINT, sigint_process_action);
 	while (cmd_list)
 	{
 		cmd = (t_command *)cmd_list->content;
@@ -57,6 +58,7 @@ int	execute_pipeline(t_minish *msh, int num_commands)
 		cmd_list = cmd_list->next;
 	}
 	last_status = wait_pipeline(cmd->pid, num_commands);
+	signal(SIGINT, sigint_action);
 	return (last_status);
 }
 
@@ -95,8 +97,10 @@ int	execute_single(t_minish *msh)
 	}
 	else
 	{
+		signal(SIGINT, sigint_process_action);
 		if (launch_process(msh, msh->commands, launch_executable))
 			status = wait_single(cmd->pid);
+		signal(SIGINT, sigint_action);
 	}
 	return (status);
 }

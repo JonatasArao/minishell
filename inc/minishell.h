@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 20:56:57 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/04 05:46:25 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,5 +231,11 @@ int			apply_heredoc(t_minish *msh, t_command *cmd,
 				t_redirection *redir);
 
 int			setup_heredocs(t_minish *msh);
+
+void		sigint_action(int sig);
+
+void		sigint_heredoc_action(int sig);
+
+void		sigint_process_action(int sig);
 
 #endif

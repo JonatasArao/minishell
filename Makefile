@@ -39,7 +39,8 @@ SRC_FILES = main.c \
 			execute/open_redirections.c \
 			execute/capture_heredoc.c \
 			execute/open_heredoc.c \
-			execute/expand_heredoc.c	
+			execute/expand_heredoc.c \
+			signal/signal_handlers.c	
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))
@@ -80,6 +81,9 @@ $(OBJS_DIR)/builtin-%.o: $(SRC_DIR)/builtin/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR)/execute-%.o: $(SRC_DIR)/execute/%.c $(HEADER) | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR)/signal-%.o: $(SRC_DIR)/signal/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 .PHONY: all clean fclean re
