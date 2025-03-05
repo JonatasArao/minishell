@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:19:45 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 18:23:13 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	get_exec_error(char *path, char **argv)
 	return (0);
 }
 
-int	launch_executable(t_minish *msh, t_command *cmd)
+int	launch_executable(t_msh *msh, t_command *cmd)
 {
 	char	**envp;
 	char	**argv;

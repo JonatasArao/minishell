@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:16:27 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 06:26:32 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	backup_fds(t_minish *msh)
+int	backup_fds(t_msh *msh)
 {
 	msh->saved_fd[0] = dup(STDIN_FILENO);
 	if (msh->saved_fd[0] == -1)
@@ -30,7 +30,7 @@ int	backup_fds(t_minish *msh)
 	return (1);
 }
 
-void	restore_fds(t_minish *msh)
+void	restore_fds(t_msh *msh)
 {
 	if (msh->saved_fd[0] != -1)
 	{

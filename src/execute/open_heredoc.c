@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 06:55:07 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	open_heredoc(t_minish *msh, char *delim)
+int	open_heredoc(t_msh *msh, char *delim)
 {
 	int		heredoc_fd[2];
 
@@ -31,7 +31,7 @@ int	open_heredoc(t_minish *msh, char *delim)
 	return (heredoc_fd[0]);
 }
 
-int	apply_heredoc(t_minish *msh, t_command *cmd, t_redirection *redir)
+int	apply_heredoc(t_msh *msh, t_command *cmd, t_redirection *redir)
 {
 	if (is_heredoc(redir->type))
 	{
@@ -44,7 +44,7 @@ int	apply_heredoc(t_minish *msh, t_command *cmd, t_redirection *redir)
 	return (1);
 }
 
-int	setup_heredocs(t_minish *msh)
+int	setup_heredocs(t_msh *msh)
 {
 	t_list			*cmd_list;
 	t_list			*redir_list;

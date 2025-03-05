@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/02 01:04:16 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_delimiter(char *input, char *delim)
 	return (0);
 }
 
-char	*process_input_line(t_minish *msh, char *input, int has_quote)
+char	*process_input_line(t_msh *msh, char *input, int has_quote)
 {
 	char	*line;
 
@@ -68,7 +68,7 @@ char	*process_input_line(t_minish *msh, char *input, int has_quote)
 	return (line);
 }
 
-int	capture_heredoc(t_minish *msh, char *delim, int heredoc_fd)
+int	capture_heredoc(t_msh *msh, char *delim, int heredoc_fd)
 {
 	char	*input;
 	char	*line;

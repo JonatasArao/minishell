@@ -10,6 +10,7 @@ HEADER = $(HEADER_DIR)/minishell.h
 INCLUDES = -I$(HEADER_DIR) -I$(LIBFT_DIR)
 SRC_DIR = src
 SRC_FILES = main.c \
+			core.c \
 			parse/extract_tokens.c \
 			parse/extract_commands.c \
 			parse/command_cleanup.c \

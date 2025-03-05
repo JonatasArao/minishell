@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 21:25:14 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 18:14:55 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_builtin(t_command *cmd)
 	return (0);
 }
 
-int	launch_builtin(t_minish *msh, t_command *cmd)
+int	launch_builtin(t_msh *msh, t_command *cmd)
 {
 	char	*cmd_name;
 	int		bi_return;

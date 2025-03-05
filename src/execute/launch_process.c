@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:17:49 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/04 20:04:24 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_child_process(t_minish *msh, t_list *cmd_node,
+void	exit_child_process(t_msh *msh, t_list *cmd_node,
 			int input_fd, int exit_code)
 {
 	if (input_fd == STDIN_FILENO || !cmd_node->next)
@@ -23,7 +23,7 @@ void	exit_child_process(t_minish *msh, t_list *cmd_node,
 	exit(exit_code);
 }
 
-void	setup_child_pipes(t_minish *msh, t_list *cmd_node, int input_fd)
+void	setup_child_pipes(t_msh *msh, t_list *cmd_node, int input_fd)
 {
 	t_command	*cmd;
 
@@ -49,8 +49,8 @@ void	setup_child_pipes(t_minish *msh, t_list *cmd_node, int input_fd)
 	}
 }
 
-void	child_process(t_minish *msh, t_list *cmd_node, int input_fd,
-	int (*launcher)(t_minish *, t_command *))
+void	child_process(t_msh *msh, t_list *cmd_node, int input_fd,
+	int (*launcher)(t_msh *, t_command *))
 {
 	t_command	*cmd;
 	int			exit_code;
@@ -84,8 +84,8 @@ int	parent_process(t_list *cmd_node, pid_t pid, int input_fd)
 	return (input_fd);
 }
 
-int	launch_process(t_minish *msh, t_list *cmd_node,
-		int (*launcher)(t_minish *, t_command *))
+int	launch_process(t_msh *msh, t_list *cmd_node,
+		int (*launcher)(t_msh *, t_command *))
 {
 	static int			input_fd = STDIN_FILENO;
 	t_command			*cmd;

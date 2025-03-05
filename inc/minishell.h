@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/04 05:46:25 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:59:08 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ typedef struct s_minish
 	t_list	*env_vars;
 	int		saved_fd[2];
 	int		last_status;
-}	t_minish;
+}	t_msh;
+
+t_msh		*get_minishell(void);
 
 size_t		get_token_end(const char *s, unsigned int start);
 
@@ -128,13 +130,13 @@ int			expand_arguments(t_list *env, int last_status, t_list **arguments);
 
 t_list		*expand_commands(t_list *env, int last_status, t_list *cmds);
 
-void		free_minishell_loop(t_minish *msh);
+void		free_minishell_loop(t_msh *msh);
 
-void		init_minishell(t_minish *msh, char **envp);
+void		init_minishell(t_msh *msh, char **envp);
 
-void		destroy_minishell(t_minish *msh);
+void		destroy_minishell(t_msh *msh);
 
-int			process_input(t_minish *msh);
+int			process_input(t_msh *msh);
 
 int			msh_echo(t_command *cmd);
 
@@ -148,17 +150,17 @@ int			msh_export(t_list **env, t_command *cmd);
 
 int			msh_unset(t_list **env, t_command *cmd);
 
-int			msh_exit(t_minish *msh, t_command *cmd);
+int			msh_exit(t_msh *msh, t_command *cmd);
 
 int			is_builtin(t_command *cmd);
 
-int			launch_builtin(t_minish *msh, t_command *cmd);
+int			launch_builtin(t_msh *msh, t_command *cmd);
 
 char		**get_argv(t_list *args);
 
-int			backup_fds(t_minish *msh);
+int			backup_fds(t_msh *msh);
 
-void		restore_fds(t_minish *msh);
+void		restore_fds(t_msh *msh);
 
 int			apply_input_redirection(int input_fd);
 
@@ -168,13 +170,13 @@ int			apply_redirections(t_command *cmd);
 
 int			wait_pipeline(pid_t last_pid, int num_commands);
 
-int			execute_pipeline(t_minish *msh, int num_commands);
+int			execute_pipeline(t_msh *msh, int num_commands);
 
 int			wait_single(pid_t pid);
 
-int			execute_single(t_minish *msh);
+int			execute_single(t_msh *msh);
 
-int			execute_commands(t_minish *msh);
+int			execute_commands(t_msh *msh);
 
 char		*get_full_path(char *token, char *cmd);
 
@@ -182,11 +184,11 @@ char		*search_path(char *path, char *cmd);
 
 char		*get_command_path(t_list *env, char *cmd);
 
-int			launch_process(t_minish *msh, t_list *cmd_node,
-				int (*launcher)(t_minish *, t_command *));
+int			launch_process(t_msh *msh, t_list *cmd_node,
+				int (*launcher)(t_msh *, t_command *));
 
-void		child_process(t_minish *msh, t_list *cmd_node, int input_fd,
-				int (*launcher)(t_minish *, t_command *));
+void		child_process(t_msh *msh, t_list *cmd_node, int input_fd,
+				int (*launcher)(t_msh *, t_command *));
 
 int			parent_process(t_list *cmd_node, pid_t pid, int input_fd);
 
@@ -196,7 +198,7 @@ int			is_directory(char *path);
 
 int			get_exec_error(char *path, char **argv);
 
-int			launch_executable(t_minish *msh, t_command *cmd);
+int			launch_executable(t_msh *msh, t_command *cmd);
 
 int			is_fd_open(int fd, char *target);
 
@@ -221,16 +223,16 @@ int			remove_delim_quotes(char *str);
 
 int			is_delimiter(char *input, char *delim);
 
-char		*process_input_line(t_minish *msh, char *input, int has_quote);
+char		*process_input_line(t_msh *msh, char *input, int has_quote);
 
-int			capture_heredoc(t_minish *msh, char *delim, int heredoc_fd);
+int			capture_heredoc(t_msh *msh, char *delim, int heredoc_fd);
 
-int			open_heredoc(t_minish *msh, char *delim);
+int			open_heredoc(t_msh *msh, char *delim);
 
-int			apply_heredoc(t_minish *msh, t_command *cmd,
+int			apply_heredoc(t_msh *msh, t_command *cmd,
 				t_redirection *redir);
 
-int			setup_heredocs(t_minish *msh);
+int			setup_heredocs(t_msh *msh);
 
 void		sigint_action(int sig);
 

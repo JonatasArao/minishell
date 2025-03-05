@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 02:39:32 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 15:28:24 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	is_exit_numeric_arg(char *arg)
 	return (1);
 }
 
-int	msh_exit(t_minish *msh, t_command *cmd)
+int	msh_exit(t_msh *msh, t_command *cmd)
 {
 	t_list	*args;
 	char	*status;
