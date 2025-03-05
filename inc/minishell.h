@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:36:34 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 00:59:08 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:15:16 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_env_var
 	char	*value;
 }	t_env_var;
 
-typedef struct s_minish
+typedef struct s_msh
 {
 	char	*input;
 	t_list	*tokens;
@@ -227,10 +227,9 @@ char		*process_input_line(t_msh *msh, char *input, int has_quote);
 
 int			capture_heredoc(t_msh *msh, char *delim, int heredoc_fd);
 
-int			open_heredoc(t_msh *msh, char *delim);
+int			open_heredoc(t_msh *msh, t_command *cmd, char *delim);
 
-int			apply_heredoc(t_msh *msh, t_command *cmd,
-				t_redirection *redir);
+int			apply_heredoc(t_msh *msh, t_command *cmd, t_redirection *redir);
 
 int			setup_heredocs(t_msh *msh);
 
@@ -239,5 +238,7 @@ void		sigint_action(int sig);
 void		sigint_heredoc_action(int sig);
 
 void		sigint_process_action(int sig);
+
+void		sigint_heredoc_action(int sig);
 
 #endif

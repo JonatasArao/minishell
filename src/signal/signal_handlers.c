@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 03:19:15 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 00:53:17 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:29:57 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	sigint_heredoc_action(int sig)
 	msh = get_minishell();
 	if (sig == SIGINT)
 	{
-		ft_putchar_fd('\n', 1);
 		destroy_minishell(msh);
 		exit(EXIT_FAILURE);
 	}

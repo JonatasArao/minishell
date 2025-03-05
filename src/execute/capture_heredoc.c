@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:57:45 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,23 @@ char	*process_input_line(t_msh *msh, char *input, int has_quote)
 
 int	capture_heredoc(t_msh *msh, char *delim, int heredoc_fd)
 {
-	char	*input;
 	char	*line;
 	int		has_quote;
 
 	has_quote = remove_delim_quotes(delim);
 	while (1)
 	{
-		input = readline("> ");
-		if (!input || is_delimiter(input, delim))
+		msh->input = readline("> ");
+		if (!msh->input || is_delimiter(msh->input, delim))
 		{
-			if (!input)
+			if (!msh->input)
 				ft_putchar_fd('\n', 1);
 			else
-				free(input);
+				ft_delpointer((void **) &msh->input);
 			break ;
 		}
-		line = process_input_line(msh, input, has_quote);
-		free(input);
+		line = process_input_line(msh, msh->input, has_quote);
+		ft_delpointer((void **) &msh->input);
 		if (!line)
 			return (0);
 		ft_putendl_fd(line, heredoc_fd);

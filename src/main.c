@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:03:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:29:12 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	process_input(t_msh *msh)
 {
 	msh->tokens = extract_tokens(msh->input);
+	ft_delpointer((void **) &msh->input);
 	if (!msh->tokens || !is_token_list_valid(msh->tokens))
 	{
 		if (msh->tokens)
@@ -52,10 +53,10 @@ int	main(int argc, char **argv, char **envp)
 		msh->input = readline("Minishell $ ");
 		if (msh->input == NULL)
 			break ;
-		if (process_input(msh))
-			msh->last_status = execute_commands(msh);
 		if (!ft_strall(msh->input, ft_isspace))
 			add_history(msh->input);
+		if (process_input(msh))
+			msh->last_status = execute_commands(msh);
 		free_minishell_loop(msh);
 	}
 	ft_putstr_fd("exit\n", 1);
