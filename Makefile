@@ -48,9 +48,6 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))
 
 all: $(NAME)
 
-debug: CFLAGS += -g
-debug: all
-
 clean:
 	$(RM) $(OBJS) $(OBJS_DIR)
 	@make clean -C $(LIBFT_DIR)
