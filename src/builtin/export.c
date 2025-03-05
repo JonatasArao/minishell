@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 01:00:30 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 10:31:16 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:04:16 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_valid_export_syntax(char *arg, char *equal_ptr)
+static int	is_valid_export_syntax(char *arg, char *equal_ptr)
 {
 	char	*key;
 

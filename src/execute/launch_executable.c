@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:19:45 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:57:06 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_execution(char *path, char **argv, char **envp)
+static void	free_execution(char *path, char **argv, char **envp)
 {
 	if (argv)
 		ft_free_nt_matrix((void **) argv);
@@ -22,7 +22,7 @@ void	free_execution(char *path, char **argv, char **envp)
 		free(path);
 }
 
-int	is_directory(char *path)
+static int	is_directory(char *path)
 {
 	struct stat	path_stat;
 
@@ -33,7 +33,7 @@ int	is_directory(char *path)
 	return (0);
 }
 
-int	get_exec_error(char *path, char **argv)
+static int	get_exec_error(char *path, char **argv)
 {
 	if (argv && argv[0])
 		ft_putstr_fd(argv[0], 2);

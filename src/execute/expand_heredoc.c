@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:14 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 20:56:39 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:00:13 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_heredoc_var_end(const char *token)
+static size_t	get_heredoc_var_end(const char *token)
 {
 	size_t		end;
 
@@ -32,7 +32,7 @@ size_t	get_heredoc_var_end(const char *token)
 	return (end);
 }
 
-char	*get_next_heredoc_var(char const *token)
+static char	*get_next_heredoc_var(char const *token)
 {
 	char			*word;
 	unsigned int	start;
@@ -48,7 +48,7 @@ char	*get_next_heredoc_var(char const *token)
 	return (word);
 }
 
-t_list	*extract_heredoc_vars(const char *token)
+static t_list	*extract_heredoc_vars(const char *token)
 {
 	t_list	*head;
 	t_list	*current;
@@ -72,7 +72,7 @@ t_list	*extract_heredoc_vars(const char *token)
 	return (head);
 }
 
-int	expand_heredoc_var(t_list *env, int last_status, char **var)
+static int	expand_heredoc_var(t_list *env, int last_status, char **var)
 {
 	char	*new_value;
 	char	*content;

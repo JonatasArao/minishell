@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   token_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:48:53 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/11 11:28:16 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:48:59 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	handle_syntax_error(const char *token, const char *next_token)
+{
+	const char	*token_error;
+
+	if (next_token)
+		token_error = next_token;
+	else
+		token_error = token;
+	ft_putstr_fd("minishell: syntax error near token `", 2);
+	ft_putstr_fd((char *) token_error, 2);
+	ft_putendl_fd("'", 2);
+	return (0);
+}
 
 int	is_valid_quotes(const char *s)
 {
@@ -37,20 +51,6 @@ int	is_valid_quotes(const char *s)
 		return (1);
 	ft_putstr_fd("minishell: unexpected EOF for `", 2);
 	ft_putchar_fd(quote_char, 2);
-	ft_putendl_fd("'", 2);
-	return (0);
-}
-
-int	handle_syntax_error(const char *token, const char *next_token)
-{
-	const char	*token_error;
-
-	if (next_token)
-		token_error = next_token;
-	else
-		token_error = token;
-	ft_putstr_fd("minishell: syntax error near token `", 2);
-	ft_putstr_fd((char *) token_error, 2);
 	ft_putendl_fd("'", 2);
 	return (0);
 }

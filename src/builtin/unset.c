@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 02:13:42 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 07:39:50 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:03:26 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_valid_unset_syntax(char *arg)
+static int	is_valid_unset_syntax(char *arg)
 {
 	char	*key;
 

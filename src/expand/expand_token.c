@@ -3,14 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:53:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 08:07:44 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:08:31 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*expand_quotes(char *s)
+{
+	char	*quote;
+	char	*double_quote;
+	char	*new_value;
+
+	new_value = NULL;
+	quote = ft_strrchr(s, '\'');
+	double_quote = ft_strrchr(s, '"');
+	if (double_quote && (!quote || double_quote > quote
+			|| (ft_strncmp(s, "\"'", 2) == 0 && s[2] == '\0')))
+		new_value = ft_strtrim(s, "\"");
+	else if (quote && (!double_quote || quote > double_quote))
+		new_value = ft_strtrim(s, "'");
+	else
+		return (s);
+	if (!new_value)
+		return (NULL);
+	return (new_value);
+}
+
+static int	expand_var(t_list *env, int last_status, char **var)
+{
+	char	*new_value;
+	char	*content;
+
+	new_value = NULL;
+	content = (char *)(*var);
+	if (content[0] == '$' && content[1] != '\0')
+		new_value = get_var_value(env, last_status, content + 1);
+	else
+	{
+		new_value = expand_quotes(content);
+		if (new_value == content)
+			return (1);
+		if (!new_value)
+			return (0);
+	}
+	free(*var);
+	*var = new_value;
+	return (1);
+}
 
 char	*get_var_value(t_list *env, int last_status, const char *key)
 {
@@ -33,49 +76,6 @@ char	*get_var_value(t_list *env, int last_status, const char *key)
 	if (!result)
 		return (NULL);
 	return (result);
-}
-
-char	*expand_quotes(char *s)
-{
-	char	*quote;
-	char	*double_quote;
-	char	*new_value;
-
-	new_value = NULL;
-	quote = ft_strrchr(s, '\'');
-	double_quote = ft_strrchr(s, '"');
-	if (double_quote && (!quote || double_quote > quote
-			|| (ft_strncmp(s, "\"'", 2) == 0 && s[2] == '\0')))
-		new_value = ft_strtrim(s, "\"");
-	else if (quote && (!double_quote || quote > double_quote))
-		new_value = ft_strtrim(s, "'");
-	else
-		return (s);
-	if (!new_value)
-		return (NULL);
-	return (new_value);
-}
-
-int	expand_var(t_list *env, int last_status, char **var)
-{
-	char	*new_value;
-	char	*content;
-
-	new_value = NULL;
-	content = (char *)(*var);
-	if (content[0] == '$' && content[1] != '\0')
-		new_value = get_var_value(env, last_status, content + 1);
-	else
-	{
-		new_value = expand_quotes(content);
-		if (new_value == content)
-			return (1);
-		if (!new_value)
-			return (0);
-	}
-	free(*var);
-	*var = new_value;
-	return (1);
 }
 
 char	*expand_token(t_list *env, int last_status, char *token)

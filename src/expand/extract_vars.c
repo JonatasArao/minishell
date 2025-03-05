@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   extract_vars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 08:33:45 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 09:24:19 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:52:17 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_var_end(const char *token)
+static size_t	get_var_end(const char *token)
 {
 	static char	quote_char;
 	size_t		end;
@@ -41,7 +41,7 @@ size_t	get_var_end(const char *token)
 	return (end);
 }
 
-char	*get_next_var(char const *token)
+static char	*get_next_var(char const *token)
 {
 	char			*word;
 	unsigned int	start;

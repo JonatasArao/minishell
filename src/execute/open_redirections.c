@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:15:33 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/01 06:58:54 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:55:26 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_fd_open(int fd, char *target)
+static int	is_fd_open(int fd, char *target)
 {
 	char	*error_message;
 
@@ -29,7 +29,7 @@ int	is_fd_open(int fd, char *target)
 	return (0);
 }
 
-int	open_output_redirections(t_redirection *redir, int *output_fd)
+static int	open_output_redirections(t_redirection *redir, int *output_fd)
 {
 	char	*type;
 	int		flags;
@@ -49,7 +49,7 @@ int	open_output_redirections(t_redirection *redir, int *output_fd)
 	return (1);
 }
 
-int	open_input_redirections(t_command *cmd, t_redirection *redir,
+static int	open_input_redirections(t_command *cmd, t_redirection *redir,
 		int *input_fd)
 {
 	char	*type;

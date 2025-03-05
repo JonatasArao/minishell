@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 01:57:45 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:01:38 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	remove_delim_quotes(char *str)
+static int	remove_delim_quotes(char *str)
 {
 	char	*src;
 	char	*dst;
@@ -38,7 +38,7 @@ int	remove_delim_quotes(char *str)
 	return (has_quote);
 }
 
-int	is_delimiter(char *input, char *delim)
+static int	is_delimiter(char *input, char *delim)
 {
 	int	delim_len;
 
@@ -49,7 +49,7 @@ int	is_delimiter(char *input, char *delim)
 	return (0);
 }
 
-char	*process_input_line(t_msh *msh, char *input, int has_quote)
+static char	*process_input_line(t_msh *msh, char *input, int has_quote)
 {
 	char	*line;
 

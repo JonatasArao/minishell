@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 07:18:15 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/22 00:47:50 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:53:32 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*create_env_string(const char *key, const char *value)
+static char	*create_env_string(const char *key, const char *value)
 {
 	char	*env_string;
 	size_t	key_len;

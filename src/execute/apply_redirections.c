@@ -6,11 +6,47 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:16:27 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:02:34 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	apply_input_redirection(int input_fd)
+{
+	if (input_fd != -1)
+	{
+		if (dup2(input_fd, STDIN_FILENO) == -1)
+		{
+			perror("minishell: input redirection: ");
+			return (0);
+		}
+		if (close(input_fd) == -1)
+		{
+			perror("minishell: input redirection: ");
+			return (0);
+		}
+	}
+	return (1);
+}
+
+static int	apply_output_redirection(int output_fd)
+{
+	if (output_fd != -1)
+	{
+		if (dup2(output_fd, STDOUT_FILENO) == -1)
+		{
+			perror("minishell: output redirection: ");
+			return (0);
+		}
+		if (close(output_fd) == -1)
+		{
+			perror("minishell: output redirection: ");
+			return (0);
+		}
+	}
+	return (1);
+}
 
 int	backup_fds(t_msh *msh)
 {
@@ -48,42 +84,6 @@ void	restore_fds(t_msh *msh)
 			perror("minishell: close output:");
 		msh->saved_fd[1] = STDOUT_FILENO;
 	}
-}
-
-int	apply_input_redirection(int input_fd)
-{
-	if (input_fd != -1)
-	{
-		if (dup2(input_fd, STDIN_FILENO) == -1)
-		{
-			perror("minishell: input redirection: ");
-			return (0);
-		}
-		if (close(input_fd) == -1)
-		{
-			perror("minishell: input redirection: ");
-			return (0);
-		}
-	}
-	return (1);
-}
-
-int	apply_output_redirection(int output_fd)
-{
-	if (output_fd != -1)
-	{
-		if (dup2(output_fd, STDOUT_FILENO) == -1)
-		{
-			perror("minishell: output redirection: ");
-			return (0);
-		}
-		if (close(output_fd) == -1)
-		{
-			perror("minishell: output redirection: ");
-			return (0);
-		}
-	}
-	return (1);
 }
 
 int	apply_redirections(t_command *cmd)

@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 02:08:41 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:06:37 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	process_heredoc_child(t_msh *msh, t_command *cmd, char *delim,
+static void	process_heredoc_child(t_msh *msh, t_command *cmd, char *delim,
 			int heredoc_fd[2])
 {
 	signal(SIGINT, sigint_heredoc_action);
@@ -28,7 +28,7 @@ void	process_heredoc_child(t_msh *msh, t_command *cmd, char *delim,
 	exit(EXIT_SUCCESS);
 }
 
-int	process_heredoc_parent(t_command *cmd, int heredoc_fd[2], pid_t pid)
+static int	process_heredoc_parent(t_command *cmd, int heredoc_fd[2], pid_t pid)
 {
 	int	status;
 
@@ -44,7 +44,7 @@ int	process_heredoc_parent(t_command *cmd, int heredoc_fd[2], pid_t pid)
 	return (1);
 }
 
-int	open_heredoc(t_msh *msh, t_command *cmd, char *delim)
+static int	open_heredoc(t_msh *msh, t_command *cmd, char *delim)
 {
 	int		heredoc_fd[2];
 	pid_t	pid;
@@ -69,7 +69,7 @@ int	open_heredoc(t_msh *msh, t_command *cmd, char *delim)
 	return (1);
 }
 
-int	apply_heredoc(t_msh *msh, t_command *cmd, t_redirection *redir)
+static int	apply_heredoc(t_msh *msh, t_command *cmd, t_redirection *redir)
 {
 	signal(SIGINT, SIG_IGN);
 	if (is_heredoc(redir->type))
@@ -77,7 +77,10 @@ int	apply_heredoc(t_msh *msh, t_command *cmd, t_redirection *redir)
 		if (cmd->heredoc_fd != -1)
 			close(cmd->heredoc_fd);
 		if (!open_heredoc(msh, cmd, redir->target))
+		{
+			signal(SIGINT, sigint_action);
 			return (0);
+		}
 	}
 	signal(SIGINT, sigint_action);
 	return (1);

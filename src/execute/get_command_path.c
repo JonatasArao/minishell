@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:18:59 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/28 18:19:09 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:59:07 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_full_path(char *token, char *cmd)
+static char	*get_full_path(char *token, char *cmd)
 {
 	char	*temp;
 	char	*full_path;
@@ -27,7 +27,7 @@ char	*get_full_path(char *token, char *cmd)
 	return (full_path);
 }
 
-char	*search_path(char *path, char *cmd)
+static char	*search_path(char *path, char *cmd)
 {
 	char	*token;
 	char	*full_path;

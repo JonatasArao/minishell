@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:20:24 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 00:52:54 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:01:06 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	wait_pipeline(pid_t last_pid, int num_commands)
+static int	wait_pipeline(pid_t last_pid, int num_commands)
 {
 	pid_t	pid;
 	int		pid_status;
@@ -40,7 +40,7 @@ int	wait_pipeline(pid_t last_pid, int num_commands)
 	return (last_status);
 }
 
-int	execute_pipeline(t_msh *msh, int num_commands)
+static int	execute_pipeline(t_msh *msh, int num_commands)
 {
 	t_list		*cmd_list;
 	t_command	*cmd;
@@ -62,7 +62,7 @@ int	execute_pipeline(t_msh *msh, int num_commands)
 	return (last_status);
 }
 
-int	wait_single(pid_t pid)
+static int	wait_single(pid_t pid)
 {
 	int	pid_status;
 	int	status;
@@ -77,7 +77,7 @@ int	wait_single(pid_t pid)
 	return (status);
 }
 
-int	execute_single(t_msh *msh)
+static int	execute_single(t_msh *msh)
 {
 	t_command	*cmd;
 	int			status;

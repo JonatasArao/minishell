@@ -39,7 +39,7 @@ SRC_FILES = main.c \
 			execute/launch_process.c \
 			execute/open_redirections.c \
 			execute/capture_heredoc.c \
-			execute/open_heredoc.c \
+			execute/setup_heredocs.c \
 			execute/expand_heredoc.c \
 			signal/signal_handlers.c	
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:19:19 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/26 14:05:24 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:53:10 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_ambiguous_redirect(char *old_target, char *new_target)
+static int	is_ambiguous_redirect(char *old_target, char *new_target)
 {
 	if (*old_target != '$'
 		|| (new_target && *new_target && !ft_strchr(new_target, ' ')))
@@ -23,7 +23,7 @@ int	is_ambiguous_redirect(char *old_target, char *new_target)
 	return (1);
 }
 
-int	expand_redir(t_list *env, int last_status, t_list *redir)
+static int	expand_redir(t_list *env, int last_status, t_list *redir)
 {
 	t_list			*current;
 	t_redirection	*current_redir;
@@ -50,7 +50,7 @@ int	expand_redir(t_list *env, int last_status, t_list *redir)
 	return (1);
 }
 
-int	expand_arguments(t_list *env, int last_status, t_list **arguments)
+static int	expand_arguments(t_list *env, int last_status, t_list **arguments)
 {
 	t_list	*current;
 	char	*expanded_content;
