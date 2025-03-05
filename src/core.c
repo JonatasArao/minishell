@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 00:46:52 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 01:00:38 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 04:31:07 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ void	free_minishell_loop(t_msh *msh)
 		ft_delpointer((void **) &msh->input);
 }
 
-void	destroy_minishell(t_msh *msh)
+void	destroy_minishell(void)
 {
+	t_msh	*msh;
+
+	msh = get_minishell();
 	rl_clear_history();
 	free_minishell_loop(msh);
 	if (msh->env_vars)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_heredoc.c                                     :+:      :+:    :+:   */
+/*   setup_heredocs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 03:06:37 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 04:31:35 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	process_heredoc_child(t_msh *msh, t_command *cmd, char *delim,
 		exit(EXIT_FAILURE);
 	}
 	close(heredoc_fd[1]);
-	destroy_minishell(msh);
+	destroy_minishell();
 	exit(EXIT_SUCCESS);
 }
 

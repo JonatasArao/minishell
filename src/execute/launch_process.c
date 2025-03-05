@@ -6,24 +6,23 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:17:49 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 02:55:56 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 04:33:26 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exit_child_process(t_msh *msh, t_list *cmd_node,
-			int input_fd, int exit_code)
+static void	exit_child_process(t_list *cmd_node, int input_fd, int exit_code)
 {
 	if (input_fd == STDIN_FILENO || !cmd_node->next)
 		close(STDIN_FILENO);
 	if (!cmd_node->next)
 		close(STDOUT_FILENO);
-	destroy_minishell(msh);
+	destroy_minishell();
 	exit(exit_code);
 }
 
-static void	setup_child_pipes(t_msh *msh, t_list *cmd_node, int input_fd)
+static void	setup_child_pipes(t_list *cmd_node, int input_fd)
 {
 	t_command	*cmd;
 
@@ -33,7 +32,7 @@ static void	setup_child_pipes(t_msh *msh, t_list *cmd_node, int input_fd)
 		if (dup2(input_fd, STDIN_FILENO) == -1)
 		{
 			perror("minishell: dup2");
-			exit_child_process(msh, cmd_node, input_fd, 1);
+			exit_child_process(cmd_node, input_fd, 1);
 		}
 		close(input_fd);
 	}
@@ -43,7 +42,7 @@ static void	setup_child_pipes(t_msh *msh, t_list *cmd_node, int input_fd)
 		if (dup2(cmd->pipe_fd[1], STDOUT_FILENO) == -1)
 		{
 			perror("minishell: dup2");
-			exit_child_process(msh, cmd_node, input_fd, 1);
+			exit_child_process(cmd_node, input_fd, 1);
 		}
 		close(cmd->pipe_fd[1]);
 	}
@@ -56,11 +55,11 @@ static void	child_process(t_msh *msh, t_list *cmd_node, int input_fd,
 	int			exit_code;
 
 	cmd = (t_command *)cmd_node->content;
-	setup_child_pipes(msh, cmd_node, input_fd);
+	setup_child_pipes(cmd_node, input_fd);
 	if (!apply_redirections(cmd))
-		exit_child_process(msh, cmd_node, input_fd, 1);
+		exit_child_process(cmd_node, input_fd, 1);
 	exit_code = launcher(msh, cmd);
-	exit_child_process(msh, cmd_node, input_fd, exit_code);
+	exit_child_process(cmd_node, input_fd, exit_code);
 }
 
 static int	parent_process(t_list *cmd_node, pid_t pid, int input_fd)
