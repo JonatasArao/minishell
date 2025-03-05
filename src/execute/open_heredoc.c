@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:52:03 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 01:55:48 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:08:41 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	process_heredoc_child(t_msh *msh, t_command *cmd, char *delim,
 			int heredoc_fd[2])
 {
+	signal(SIGINT, sigint_heredoc_action);
 	cmd->heredoc_fd = heredoc_fd[1];
 	close(heredoc_fd[0]);
 	if (!capture_heredoc(msh, delim, heredoc_fd[1]))
