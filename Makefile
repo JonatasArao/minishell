@@ -61,7 +61,7 @@ $(NAME): $(LIBFT_LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 $(LIBFT_LIB):
-	@make $(if $(filter debug,$(MAKECMDGOALS)),debug) -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
