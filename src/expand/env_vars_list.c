@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:45:44 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/22 01:52:20 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:27:51 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,15 @@ int	lstadd_env_var(t_list **env, const char *key, const char *value)
 	t_env_var	*new_env;
 	t_list		*new_node;
 
-	if (!value || !key || !(*key))
+	if (!key || !(*key))
 		return (0);
-	new_env = malloc(sizeof(t_env_var));
+	new_env = ft_calloc(1, sizeof(t_env_var));
 	if (!new_env)
 		return (0);
 	new_env->key = ft_strdup(key);
-	new_env->value = ft_strdup(value);
-	if (!new_env->key || !new_env->value)
+	if (value)
+		new_env->value = ft_strdup(value);
+	if (!new_env->key)
 	{
 		free_env_var(new_env);
 		return (0);
@@ -80,6 +81,8 @@ int	lstset_env_var(t_list **env, const char *key, const char *value)
 	env_var = get_env_var(*env, key);
 	if (!env_var)
 		return (lstadd_env_var(env, key, value));
+	if (!value)
+		return (0);
 	free(env_var->value);
 	env_var->value = ft_strdup(value);
 	if (!env_var->value)
@@ -89,28 +92,12 @@ int	lstset_env_var(t_list **env, const char *key, const char *value)
 
 int	lstrm_env_var(t_list **env, const char *key)
 {
-	t_list		*current;
-	t_list		*previous;
 	t_env_var	*target_var;
 
 	target_var = get_env_var(*env, key);
 	if (!target_var)
 		return (0);
-	current = *env;
-	previous = NULL;
-	while (current)
-	{
-		if (current->content == target_var)
-		{
-			if (previous)
-				previous->next = current->next;
-			else
-				*env = current->next;
-			ft_lstdelone(current, free_env_var);
-			return (1);
-		}
-		previous = current;
-		current = current->next;
-	}
-	return (0);
+	if (!ft_lstrm(env, target_var, free_env_var))
+		return (0);
+	return (1);
 }

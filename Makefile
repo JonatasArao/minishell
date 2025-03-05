@@ -10,6 +10,7 @@ HEADER = $(HEADER_DIR)/minishell.h
 INCLUDES = -I$(HEADER_DIR) -I$(LIBFT_DIR)
 SRC_DIR = src
 SRC_FILES = main.c \
+			core.c \
 			parse/extract_tokens.c \
 			parse/extract_commands.c \
 			parse/command_cleanup.c \
@@ -20,7 +21,27 @@ SRC_FILES = main.c \
 			expand/envp_manager.c \
 			expand/extract_vars.c \
 			expand/expand_token.c \
-			expand/expand_commands.c
+			expand/concat_vars.c \
+			expand/expand_commands.c \
+			builtin/echo.c \
+			builtin/pwd.c \
+			builtin/cd.c \
+			builtin/env.c \
+			builtin/export.c \
+			builtin/unset.c \
+			builtin/exit.c \
+			execute/apply_redirections.c \
+			execute/execute_commands.c \
+			execute/get_command_path.c \
+			execute/argv_manager.c	\
+			execute/launch_executable.c \
+			execute/launch_builtin.c \
+			execute/launch_process.c \
+			execute/open_redirections.c \
+			execute/capture_heredoc.c \
+			execute/setup_heredocs.c \
+			execute/expand_heredoc.c \
+			signal/signal_handlers.c	
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(subst /,-, $(SRC_FILES:.c=.o)))
@@ -55,6 +76,15 @@ $(OBJS_DIR)/parse-%.o: $(SRC_DIR)/parse/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR)/expand-%.o: $(SRC_DIR)/expand/%.c $(HEADER) | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR)/builtin-%.o: $(SRC_DIR)/builtin/%.c $(HEADER) | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR)/execute-%.o: $(SRC_DIR)/execute/%.c $(HEADER) | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR)/signal-%.o: $(SRC_DIR)/signal/%.c $(HEADER) | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 .PHONY: all clean fclean re

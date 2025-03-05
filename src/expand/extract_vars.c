@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 08:33:45 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/19 00:58:33 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:52:17 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_var_end(const char *token)
+static size_t	get_var_end(const char *token)
 {
 	static char	quote_char;
 	size_t		end;
@@ -26,7 +26,8 @@ size_t	get_var_end(const char *token)
 	{
 		if (token[end] == quote_char || (token[0] == '$'
 				&& (ft_isspace(token[end])
-					|| ft_strchr("\"';()[]{}+-*/=", token[end]))))
+					|| ft_strchr("\"';()[]{}+-*/=", token[end])
+					|| (end > 0 && token[end - 1] == '?'))))
 			break ;
 		if (quote_char != '\'' && token[end] == '$' && end != 0)
 			return (end);
@@ -40,7 +41,7 @@ size_t	get_var_end(const char *token)
 	return (end);
 }
 
-char	*get_next_var(char const *token)
+static char	*get_next_var(char const *token)
 {
 	char			*word;
 	unsigned int	start;

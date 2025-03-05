@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:43:00 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/11 16:05:12 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/02/26 07:50:12 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	lstadd_redir(t_list **head, const char *type, const char *target)
 
 	if (!(*type) || !(*target))
 		return (0);
-	new_redir = malloc(sizeof(t_redirection));
+	new_redir = ft_calloc(1, sizeof(t_redirection));
 	if (!new_redir)
 		return (0);
 	new_redir->type = ft_strdup(type);

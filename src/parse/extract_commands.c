@@ -6,13 +6,13 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 21:26:59 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/20 22:58:25 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:51:05 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_command	*alloc_command(void)
+static t_command	*alloc_command(void)
 {
 	t_command	*cmd;
 
@@ -21,13 +21,16 @@ t_command	*alloc_command(void)
 		return (NULL);
 	cmd->arguments = NULL;
 	cmd->redirections = NULL;
+	cmd->pid = -1;
 	cmd->input_fd = -1;
 	cmd->output_fd = -1;
-	cmd->status = 0;
+	cmd->heredoc_fd = -1;
+	cmd->pipe_fd[0] = -1;
+	cmd->pipe_fd[1] = -1;
 	return (cmd);
 }
 
-t_list	*parse_tokens(t_list *token_node, t_command *cmd)
+static t_list	*parse_tokens(t_list *token_node, t_command *cmd)
 {
 	char	*token;
 	char	*prev_token;

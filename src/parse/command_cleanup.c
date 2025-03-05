@@ -6,7 +6,7 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 21:46:13 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/20 22:58:45 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/01 07:01:17 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ void	free_command(void *cmd_ptr)
 			ft_lstclear(&cmd->arguments, free);
 		if (cmd->redirections)
 			ft_lstclear(&cmd->redirections, free_redirection);
+		if (cmd->input_fd != -1)
+			close(cmd->input_fd);
+		if (cmd->output_fd != -1)
+			close(cmd->output_fd);
+		if (cmd->heredoc_fd != cmd->input_fd && cmd->heredoc_fd != -1)
+			close(cmd->heredoc_fd);
+		if (cmd->pipe_fd[0] != -1)
+			close(cmd->pipe_fd[0]);
+		if (cmd->pipe_fd[1] != -1)
+			close(cmd->pipe_fd[1]);
 		free(cmd);
 	}
 }

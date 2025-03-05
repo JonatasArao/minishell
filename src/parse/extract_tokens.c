@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   extract_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 22:22:35 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/06 16:49:35 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:50:24 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_token_end(const char *s, unsigned int start)
+static size_t	get_token_end(const char *s, unsigned int start)
 {
 	size_t	end;
 	char	quote_char;
@@ -40,7 +40,7 @@ size_t	get_token_end(const char *s, unsigned int start)
 	return (end);
 }
 
-char	*get_next_token(const char *s)
+static char	*get_next_token(const char *s)
 {
 	char			*token;
 	unsigned int	start;

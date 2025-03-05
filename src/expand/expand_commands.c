@@ -6,15 +6,16 @@
 /*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:19:19 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/02/20 23:28:20 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 02:53:10 by jarao-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_ambiguous_redirect(char *old_target, char *new_target)
+static int	is_ambiguous_redirect(char *old_target, char *new_target)
 {
-	if (*new_target && !ft_strchr(new_target, ' '))
+	if (*old_target != '$'
+		|| (new_target && *new_target && !ft_strchr(new_target, ' ')))
 		return (0);
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(old_target, 2);
@@ -22,7 +23,7 @@ int	is_ambiguous_redirect(char *old_target, char *new_target)
 	return (1);
 }
 
-int	expand_redir(t_list *env, int last_status, t_list *redir)
+static int	expand_redir(t_list *env, int last_status, t_list *redir)
 {
 	t_list			*current;
 	t_redirection	*current_redir;
@@ -37,8 +38,7 @@ int	expand_redir(t_list *env, int last_status, t_list *redir)
 		{
 			old_target = current_redir->target;
 			new_target = expand_token(env, last_status, old_target);
-			if (new_target
-				&& is_ambiguous_redirect(old_target, new_target))
+			if (is_ambiguous_redirect(old_target, new_target))
 				ft_delpointer((void **) &new_target);
 			if (!new_target)
 				return (0);
@@ -50,22 +50,29 @@ int	expand_redir(t_list *env, int last_status, t_list *redir)
 	return (1);
 }
 
-int	expand_arguments(t_list *env, int last_status, t_list *arguments)
+static int	expand_arguments(t_list *env, int last_status, t_list **arguments)
 {
 	t_list	*current;
 	char	*expanded_content;
 	char	*old_content;
 
-	current = arguments;
+	current = *arguments;
 	while (current)
 	{
 		old_content = (char *)current->content;
 		expanded_content = expand_token(env, last_status, old_content);
 		if (!expanded_content)
-			return (0);
-		current->content = expanded_content;
-		free(old_content);
-		current = current->next;
+		{
+			current = current->next;
+			if (!ft_lstrm(arguments, old_content, free))
+				return (0);
+		}
+		else
+		{
+			current->content = expanded_content;
+			free(old_content);
+			current = current->next;
+		}
 	}
 	return (1);
 }
@@ -80,7 +87,7 @@ t_list	*expand_commands(t_list *env, int last_status, t_list *cmds)
 	{
 		current_cmd = (t_command *)current->content;
 		if (!expand_redir(env, last_status, current_cmd->redirections)
-			|| !expand_arguments(env, last_status, current_cmd->arguments))
+			|| !expand_arguments(env, last_status, &current_cmd->arguments))
 		{
 			ft_lstclear(&cmds, free_command);
 			return (NULL);
