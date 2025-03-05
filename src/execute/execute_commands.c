@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarao-de <jarao-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gugomes- <gugomes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:20:24 by jarao-de          #+#    #+#             */
-/*   Updated: 2025/03/05 03:01:06 by jarao-de         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:17:50 by gugomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static int	execute_single(t_msh *msh)
 	t_command	*cmd;
 	int			status;
 
+	status = 0;
 	cmd = (t_command *)msh->commands->content;
 	if (is_builtin(cmd))
 	{
